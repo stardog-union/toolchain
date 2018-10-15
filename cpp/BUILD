@@ -1,22 +1,12 @@
-# Copyright 2016 The Bazel Authors. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# This becomes the BUILD file for @local_config_cc// under non-FreeBSD unixes.
-
 package(default_visibility = ["//visibility:public"])
 
-licenses(["notice"])  # Apache 2.0
+load(":linux_archs.bzl", "LINUX_TOOLS_ARCHS")
+load(":osx_archs.bzl", "OSX_TOOLS_ARCHS")
+
+CC_TOOLCHAINS = [(
+    cpu + "|compiler",
+    ":cc-compiler-" + cpu,
+) for cpu in LINUX_TOOLS_ARCHS + OSX_TOOLS_ARCHS]
 
 cc_library(
     name = "malloc",
@@ -24,6 +14,11 @@ cc_library(
 
 cc_library(
     name = "stl",
+)
+
+filegroup(
+    name = "compiler_deps",
+    srcs = glob(["extra_tools/**"]) + [":empty"],
 )
 
 filegroup(
@@ -36,45 +31,75 @@ filegroup(
     srcs = ["cc_wrapper.sh"],
 )
 
-filegroup(
-    name = "compiler_deps",
-    srcs = glob(["extra_tools/**"]) + [":empty"],
-)
-
-# This is the entry point for --crosstool_top.  Toolchains are found
-# by lopping off the name of --crosstool_top and searching for
-# the "${CPU}" entry in the toolchains attribute.
 cc_toolchain_suite(
     name = "toolchain",
-    toolchains = {
-        "k8|compiler": ":cc-compiler-linux",
-    },
+    toolchains = dict(CC_TOOLCHAINS),
 )
 
-cc_toolchain(
-    name = "cc-compiler-linux",
-    all_files = ":compiler_deps",
-    compiler_files = ":compiler_deps",
-    cpu = "k8",
-    dwp_files = ":empty",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":compiler_deps",
-    objcopy_files = ":empty",
-    static_runtime_libs = [":empty"],
-    strip_files = ":empty",
-    supports_param_files = 1,
-)
+[
+    filegroup(
+        name = "osx_tools_" + arch,
+        srcs = [
+          ":cc_wrapper",
+          ":libtool",
+          ":make_hashed_objlist.py",
+          ":wrapped_clang",
+          ":wrapped_clang_pp",
+          ":wrapped_ar",
+          ":xcrunwrapper.sh",
+        ],
+    )
+    for arch in OSX_TOOLS_ARCHS
+]
 
-toolchain(
-    name = "cc-toolchain-linux",
-    exec_compatible_with = [
-        # This toolchain will only work with the local autoconfigured platforms.
-        "@bazel_tools//platforms:autoconfigured",
-        # TODO(katre): add autodiscovered constraints for host CPU and OS.
-    ],
-    target_compatible_with = [
-        # TODO(katre): add autodiscovered constraints for host CPU and OS.
-    ],
-    toolchain = ":cc-compiler-linux",
-    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
-)
+[
+    cc_toolchain(
+        name = "cc-compiler-" + arch,
+        all_files = ":compiler_deps",
+        compiler_files = ":compiler_deps",
+        cpu = arch,
+        dwp_files = ":empty",
+        dynamic_runtime_libs = [":empty"],
+        linker_files = ":compiler_deps",
+        objcopy_files = ":empty",
+        static_runtime_libs = [":empty"],
+        strip_files = ":empty",
+        supports_param_files = 1,
+    )
+    for arch in LINUX_TOOLS_ARCHS
+]
+
+[
+    apple_cc_toolchain(
+        name = "cc-compiler-" + arch,
+        all_files = ":osx_tools_" + arch,
+        compiler_files = ":osx_tools_" + arch,
+        cpu = arch,
+        dwp_files = ":empty",
+        dynamic_runtime_libs = [":empty"],
+        linker_files = ":osx_tools_" + arch,
+        objcopy_files = ":empty",
+        static_runtime_libs = [":empty"],
+        strip_files = ":osx_tools_" + arch,
+        supports_param_files = 0,
+    )
+    for arch in OSX_TOOLS_ARCHS
+]
+
+[
+    toolchain(
+        name = "cc-toolchain-" + arch,
+        exec_compatible_with = [
+            # This toolchain will only work with the local autoconfigured
+            # platforms.
+            "@bazel_tools//platforms:autoconfigured",
+            # TODO(katre): add autodiscovered constraints for host CPU and OS.
+        ],
+        target_compatible_with = [
+            # TODO(katre): add autodiscovered constraints for host CPU and OS.
+        ],
+        toolchain = ":cc-compiler-" + arch,
+        toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+    )
+    for arch in LINUX_TOOLS_ARCHS + OSX_TOOLS_ARCHS
+]
