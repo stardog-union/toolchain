@@ -47,14 +47,12 @@ filegroup(
 cc_toolchain_suite(
     name = "toolchain",
     toolchains = {
-        "k8|compiler": ":cc-compiler-k8",
-        "armeabi-v7a|compiler": ":cc-compiler-armeabi-v7a",
-        "ios_x86_64|compiler": ":cc-compiler-ios_x86_64",
+        "k8|compiler": ":cc-compiler-linux",
     },
 )
 
 cc_toolchain(
-    name = "cc-compiler-k8",
+    name = "cc-compiler-linux",
     all_files = ":compiler_deps",
     compiler_files = ":compiler_deps",
     cpu = "k8",
@@ -68,7 +66,7 @@ cc_toolchain(
 )
 
 toolchain(
-    name = "cc-toolchain-k8",
+    name = "cc-toolchain-linux",
     exec_compatible_with = [
         # This toolchain will only work with the local autoconfigured platforms.
         "@bazel_tools//platforms:autoconfigured",
@@ -77,63 +75,6 @@ toolchain(
     target_compatible_with = [
         # TODO(katre): add autodiscovered constraints for host CPU and OS.
     ],
-    toolchain = ":cc-compiler-k8",
-    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
-)
-
-# Android tooling requires a default toolchain for the armeabi-v7a cpu.
-cc_toolchain(
-    name = "cc-compiler-armeabi-v7a",
-    all_files = ":empty",
-    compiler_files = ":empty",
-    cpu = "local",
-    dwp_files = ":empty",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":empty",
-    objcopy_files = ":empty",
-    static_runtime_libs = [":empty"],
-    strip_files = ":empty",
-    supports_param_files = 1,
-)
-
-toolchain(
-    name = "cc-toolchain-armeabi-v7a",
-    exec_compatible_with = [
-        # TODO(katre): add autodiscovered constraints for host CPU and OS.
-    ],
-    target_compatible_with = [
-        "@bazel_tools//platforms:arm",
-        "@bazel_tools//platforms:android",
-    ],
-    toolchain = ":cc-compiler-armabi-v7a",
-    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
-)
-
-# ios crosstool configuration requires a default toolchain for the
-# ios_x86_64 cpu.
-cc_toolchain(
-    name = "cc-compiler-ios_x86_64",
-    all_files = ":empty",
-    compiler_files = ":empty",
-    cpu = "local",
-    dwp_files = ":empty",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":empty",
-    objcopy_files = ":empty",
-    static_runtime_libs = [":empty"],
-    strip_files = ":empty",
-    supports_param_files = 1,
-)
-
-toolchain(
-    name = "cc-toolchain-ios_x86_64",
-    exec_compatible_with = [
-        # TODO(katre): add autodiscovered constraints for host CPU and OS.
-    ],
-    target_compatible_with = [
-        "@bazel_tools//platforms:x86_64",
-        "@bazel_tools//platforms:ios",
-    ],
-    toolchain = ":cc-compiler-ios_x86_64",
+    toolchain = ":cc-compiler-linux",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
