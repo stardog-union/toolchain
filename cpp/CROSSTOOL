@@ -41,9 +41,9 @@ toolchain {
   linker_flag: "-Wl,-no-as-needed"
   linker_flag: "-Wl,-z,relro,-z,now"
   linker_flag: "-B/usr/bin"
-  linker_flag: "-B/usr/bin"
   linker_flag: "-lstdc++"
   linker_flag: "-lm"
+
   cxx_builtin_include_directory: "/usr/lib/llvm-3.9/lib/clang/3.9.1/include"
   cxx_builtin_include_directory: "/usr/local/include"
   cxx_builtin_include_directory: "/usr/include"
@@ -59,7 +59,6 @@ toolchain {
   compiler_flag: "-U_FORTIFY_SOURCE"
   compiler_flag: "-fstack-protector"
   compiler_flag: "-Wall"
-  compiler_flag: "-B/usr/bin"
   compiler_flag: "-B/usr/bin"
   compiler_flag: "-fno-omit-frame-pointer"
   tool_path {name: "ar" path: "/usr/bin/ar" }

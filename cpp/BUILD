@@ -8,50 +8,17 @@ CC_TOOLCHAINS = [(
     ":cc-compiler-" + cpu,
 ) for cpu in LINUX_TOOLS_ARCHS + OSX_TOOLS_ARCHS]
 
-cc_library(
-    name = "malloc",
-)
-
-cc_library(
-    name = "stl",
-)
-
-filegroup(
-    name = "compiler_deps",
-    srcs = glob(["extra_tools/**"]) + [":empty"],
-)
-
-filegroup(
-    name = "empty",
-    srcs = [],
-)
-
-filegroup(
-    name = "cc_wrapper",
-    srcs = ["cc_wrapper.sh"],
-)
-
 cc_toolchain_suite(
     name = "toolchain",
     toolchains = dict(CC_TOOLCHAINS),
 )
 
-[
-    filegroup(
-        name = "osx_tools_" + arch,
-        srcs = [
-          ":cc_wrapper",
-          ":libtool",
-          ":make_hashed_objlist.py",
-          ":wrapped_clang",
-          ":wrapped_clang_pp",
-          ":wrapped_ar",
-          ":xcrunwrapper.sh",
-        ],
-    )
-    for arch in OSX_TOOLS_ARCHS
-]
+alias(
+    name = "cpp",
+    actual = ":toolchain",
+)
 
+# Linux native.
 [
     cc_toolchain(
         name = "cc-compiler-" + arch,
@@ -67,6 +34,38 @@ cc_toolchain_suite(
         supports_param_files = 1,
     )
     for arch in LINUX_TOOLS_ARCHS
+]
+
+[
+    toolchain(
+        name = "cc-toolchain-" + arch,
+        exec_compatible_with = [
+            "@bazel_tools//platforms:linux",
+        ],
+        target_compatible_with = [
+            "@bazel_tools//platforms:linux",
+        ],
+        toolchain = ":cc-compiler-" + arch,
+        toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+    )
+    for arch in LINUX_TOOLS_ARCHS
+]
+
+# OSX native.
+[
+    filegroup(
+        name = "osx_tools_" + arch,
+        srcs = [
+          ":cc_wrapper",
+          ":libtool",
+          ":make_hashed_objlist.py",
+          ":wrapped_clang",
+          ":wrapped_clang_pp",
+          ":wrapped_ar",
+          ":xcrunwrapper.sh",
+        ],
+    )
+    for arch in OSX_TOOLS_ARCHS
 ]
 
 [
@@ -90,16 +89,38 @@ cc_toolchain_suite(
     toolchain(
         name = "cc-toolchain-" + arch,
         exec_compatible_with = [
-            # This toolchain will only work with the local autoconfigured
-            # platforms.
-            "@bazel_tools//platforms:autoconfigured",
-            # TODO(katre): add autodiscovered constraints for host CPU and OS.
+            "@bazel_tools//platforms:osx",
         ],
         target_compatible_with = [
-            # TODO(katre): add autodiscovered constraints for host CPU and OS.
+            "@bazel_tools//platforms:osx",
         ],
         toolchain = ":cc-compiler-" + arch,
         toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
     )
-    for arch in LINUX_TOOLS_ARCHS + OSX_TOOLS_ARCHS
+    for arch in OSX_TOOLS_ARCHS
 ]
+
+filegroup(
+    name = "cc_wrapper",
+    srcs = ["cc_wrapper.sh"],
+)
+
+# General utilities.
+# TODO(james): Determine which of these are really needed.
+cc_library(
+    name = "malloc",
+)
+
+cc_library(
+    name = "stl",
+)
+
+filegroup(
+    name = "compiler_deps",
+    srcs = glob(["extra_tools/**"]) + [":empty"],
+)
+
+filegroup(
+    name = "empty",
+    srcs = [],
+)
