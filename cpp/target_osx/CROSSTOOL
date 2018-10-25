@@ -35,8 +35,8 @@ toolchain {
 
   # Cross-compiler tools.
   tool_path {name: "ar" path: "ar_wrapper.sh" }
-  tool_path {name: "gcc" path: "cc_wrapper.sh" }
-  tool_path {name: "ld" path: "cc_wrapper.sh" }
+  tool_path {name: "gcc" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++" }
+  tool_path {name: "ld" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++" }
   tool_path {name: "nm" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-install_name_tool" }
   tool_path {name: "objdump" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ObjectDump" }
   tool_path {name: "ranlib" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ranlib" }
