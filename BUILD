@@ -24,3 +24,62 @@ platform(
     ],
 )
 
+# Target platform config_settings.
+config_setting(
+    name = "linux-target",
+    constraint_values = [
+        "@bazel_tools//platforms:linux",
+    ],
+)
+
+config_setting(
+    name = "osx-target",
+    constraint_values = [
+        "@bazel_tools//platforms:osx",
+    ],
+)
+
+config_setting(
+    name = "windows-target",
+    constraint_values = [
+        "@bazel_tools//platforms:windows",
+    ],
+)
+
+# Native / cross-compile config setting.
+config_setting(
+    name = "linux-native",
+    constraint_values = [
+        "@bazel_tools//platforms:linux",
+    ],
+    values = {
+        "compiler": "linux-x86_64-clang-linux",
+    },
+)
+
+config_setting(
+    name = "osx-native",
+    constraint_values = [
+        "@bazel_tools//platforms:osx",
+    ],
+    values = {
+        "compiler": "osx-x86_64-clang-osx",
+    },
+)
+
+config_setting(
+    name = "windows-native",
+    constraint_values = [
+        "@bazel_tools//platforms:windows",
+    ],
+    values = {
+        "compiler": "windows-x86_64-clang-windows",
+    },
+)
+
+config_setting(
+    name = "cross-compile",
+    values = {
+        "compiler": "osx-x86_64-clang-linux",
+    },
+)
