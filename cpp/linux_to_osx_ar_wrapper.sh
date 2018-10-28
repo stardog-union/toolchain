@@ -3,6 +3,7 @@
 declare -a original_args
 declare -a final_ar_args
 declare -a final_ranlib_args
+
 declare want_ranlib=0
 declare archive_name=""
 declare next_is_archive_name=0
@@ -32,7 +33,7 @@ function interpret_arg {
     local arg="$1"
     if [[ "$arg" =~ ^-s$ ]]
     then
-	echo "${arg}: Want ranlib"
+	echo "${arg}: ranlib required."
 	want_ranlib=1
     else
 	if (( $next_is_archive_name ))
@@ -48,14 +49,13 @@ function interpret_arg {
 	    next_is_archive_name=0
 	fi
 
-	echo "${arg} doesnt specify ranlib"
 	original_args+=("$arg")
     fi
 }
 
 function munge_ar_args {
     local arg
-    final_ar_args+=("-r")
+    final_ar_args+=("rcs")
     for arg in "${original_args[@]}"
     do
 	if [[ ! "$arg" =~ ^-static$ && ! "$arg" =~ ^-o$ ]]
@@ -71,6 +71,7 @@ do
 done
 
 munge_ar_args
+
 echo "Result: /opt/osxcross/target/bin/x86_64-apple-darwin15-ar ${final_ar_args[@]}"
 /opt/osxcross/target/bin/x86_64-apple-darwin15-ar "${final_ar_args[@]}"
 

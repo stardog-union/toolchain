@@ -159,9 +159,10 @@ toolchain {
   cxx_builtin_include_directory: "/usr/lib/llvm-3.9/lib/clang/3.9.1/include/"
 
   # Cross-compiler tools.
+  #tool_path {name: "ar" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ar" }
   tool_path {name: "ar" path: "linux_to_osx_ar_wrapper.sh" }
-  tool_path {name: "gcc" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++" }
-  tool_path {name: "ld" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++" }
+  tool_path {name: "gcc" path: "linux_to_osx_cc_wrapper.sh" }
+  tool_path {name: "ld" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ld" }
   tool_path {name: "nm" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-install_name_tool" }
   tool_path {name: "objdump" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ObjectDump" }
   tool_path {name: "ranlib" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ranlib" }
@@ -247,24 +248,24 @@ toolchain {
 
 toolchain {
   toolchain_identifier: "osx-x86_64-clang-local"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
-cxx_builtin_include_directory: "/usr/local/include"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"
-cxx_builtin_include_directory: "/usr/include"
-cxx_builtin_include_directory: "/System/Library/Frameworks"
-cxx_builtin_include_directory: "/Library/Frameworks"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode7.1.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.3.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.4.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode8.3.3.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode8.2.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.2.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.3.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode7.3.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode7.2.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
+  cxx_builtin_include_directory: "/usr/local/include"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"
+  cxx_builtin_include_directory: "/usr/include"
+  cxx_builtin_include_directory: "/System/Library/Frameworks"
+  cxx_builtin_include_directory: "/Library/Frameworks"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode7.1.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.3.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.4.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode8.3.3.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode8.2.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.2.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.3.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode7.3.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode7.2.1.app/Contents/Developer"
   host_system_name: "x86_64-apple-macosx"
   target_system_name: "x86_64-apple-macosx"
   target_cpu: "darwin"
