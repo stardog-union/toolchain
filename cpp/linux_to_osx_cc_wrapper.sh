@@ -41,7 +41,6 @@ function interpret_arg {
 function munge_args {
     if [[ $building_shared_library = 1 ]]
     then
-	final_args+=("-Wl,-r")
 	final_args+=("-Wl,-undefined")
 	final_args+=("-Wl,dynamic_lookup")
     fi
