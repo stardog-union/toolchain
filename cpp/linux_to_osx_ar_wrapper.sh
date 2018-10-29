@@ -21,8 +21,6 @@ function preprocess {
 
 function get_args_from_file {
     local filename="$1"
-    echo "Deps filename: ${filename}"
-    cat "${filename}"
     while read -r line
     do
 	interpret_arg "${line}"
@@ -33,12 +31,10 @@ function interpret_arg {
     local arg="$1"
     if [[ "$arg" =~ ^-s$ ]]
     then
-	echo "${arg}: ranlib required."
 	want_ranlib=1
     else
 	if (( $next_is_archive_name ))
 	then
-	    echo "Found archive name: $arg"
 	    archive_name="$arg"
 	fi
 
