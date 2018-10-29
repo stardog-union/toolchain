@@ -79,8 +79,6 @@ toolchain {
 
   compilation_mode_flags {
     mode: FASTBUILD
-    compiler_flag: "-g"
-    compiler_flag: "-O"
   }
 
   compilation_mode_flags {
@@ -197,8 +195,6 @@ toolchain {
 
   compilation_mode_flags {
     mode: FASTBUILD
-    compiler_flag: "-g"
-    compiler_flag: "-O"
   }
 
   compilation_mode_flags {
@@ -339,9 +335,6 @@ toolchain {
   objcopy_embed_flag: "binary"
   compilation_mode_flags {
     mode: FASTBUILD
-    compiler_flag: "-g"
-    compiler_flag: "-O1"
-    compiler_flag: "-DDEBUG"
   }
   compilation_mode_flags {
     mode: OPT
