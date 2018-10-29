@@ -42,6 +42,7 @@ function munge_args {
     if [[ $building_shared_library = 1 ]]
     then
 	final_args+=("-Wl,-r")
+	final_args+=("-Wl,-dynamiclib")
     fi
     final_args+=("${original_args[@]}")
 }
