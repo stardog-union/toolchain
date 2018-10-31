@@ -3,28 +3,27 @@ minor_version: "0"
 
 default_target_cpu: "same_as_host"
 
-# Linux default toolchains.
 default_toolchain {
   cpu: "k8"
-  toolchain_identifier: "linux_x86_64_clang-39"
+  toolchain_identifier: "linux-x86_64-clang-local"
 }
 
-# OSX default toolchains.
 default_toolchain {
   cpu: "darwin"
-  toolchain_identifier: "darwin_x86_64"
+  toolchain_identifier: "osx-x86_64-clang-local"
 }
+
 default_toolchain {
-  cpu: "darwin_x86_64"
-  toolchain_identifier: "darwin_x86_64"
+  cpu: "k8"
+  toolchain_identifier: "osx-x86_64-clang-linux"
 }
 
 toolchain {
-  toolchain_identifier: "linux_x86_64_clang-39"
+  toolchain_identifier: "linux-x86_64-clang-local"
   abi_version: "local"
   abi_libc_version: "local"
   builtin_sysroot: ""
-  compiler: "compiler"
+  compiler: "linux-x86_64-clang-linux"
   host_system_name: "local"
   needsPic: true
   supports_gold_linker: true
@@ -37,13 +36,10 @@ toolchain {
   target_cpu: "k8"
   target_system_name: "local"
   cxx_flag: "-std=c++14"
-  linker_flag: "-fuse-ld=gold"
   linker_flag: "-Wl,-no-as-needed"
   linker_flag: "-Wl,-z,relro,-z,now"
   linker_flag: "-B/usr/bin"
-  linker_flag: "-B/usr/bin"
-  linker_flag: "-lstdc++"
-  linker_flag: "-lm"
+
   cxx_builtin_include_directory: "/usr/lib/llvm-3.9/lib/clang/3.9.1/include"
   cxx_builtin_include_directory: "/usr/local/include"
   cxx_builtin_include_directory: "/usr/include"
@@ -60,12 +56,11 @@ toolchain {
   compiler_flag: "-fstack-protector"
   compiler_flag: "-Wall"
   compiler_flag: "-B/usr/bin"
-  compiler_flag: "-B/usr/bin"
   compiler_flag: "-fno-omit-frame-pointer"
   tool_path {name: "ar" path: "/usr/bin/ar" }
   tool_path {name: "ld" path: "/usr/bin/ld" }
   tool_path {name: "cpp" path: "/usr/bin/cpp" }
-  tool_path {name: "gcc" path: "/usr/bin/clang-3.9" }
+  tool_path {name: "gcc" path: "/usr/bin/clang++" }
   tool_path {name: "dwp" path: "/usr/bin/dwp" }
   tool_path {name: "gcov" path: "/usr/bin/gcov" }
   tool_path {name: "nm" path: "/usr/bin/nm" }
@@ -81,8 +76,6 @@ toolchain {
 
   compilation_mode_flags {
     mode: FASTBUILD
-    compiler_flag: "-g"
-    compiler_flag: "-O"
   }
 
   compilation_mode_flags {
@@ -136,30 +129,147 @@ toolchain {
 }
 
 toolchain {
-  toolchain_identifier: "darwin_x86_64"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
-cxx_builtin_include_directory: "/usr/local/include"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"
-cxx_builtin_include_directory: "/usr/include"
-cxx_builtin_include_directory: "/System/Library/Frameworks"
-cxx_builtin_include_directory: "/Library/Frameworks"
-cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode7.1.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.3.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.4.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode8.3.3.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode8.2.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.2.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.3.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode9.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode7.3.1.app/Contents/Developer"
-cxx_builtin_include_directory: "/Applications/Xcode7.2.1.app/Contents/Developer"
+  toolchain_identifier: "osx-x86_64-clang-linux"
+  host_system_name: "local"
+  target_system_name: "x86_64-apple-macosx"
+  target_cpu: "k8"
+  target_libc: "macosx"
+
+  abi_version: "darwin_x86_64"
+  abi_libc_version: "darwin_x86_64"
+
+  needsPic: true
+  supports_gold_linker: false
+  supports_incremental_linker: false
+  supports_fission: false
+  supports_interface_shared_objects: false
+  supports_normalizing_ar: false
+  supports_start_end_lib: false
+
+  compiler: "osx-x86_64-clang-linux"
+
+  cxx_builtin_include_directory: "/opt/osxcross/target/SDK/MacOSX10.11.sdk/usr/include/c++/v1"
+  cxx_builtin_include_directory: "/opt/osxcross/target/SDK/MacOSX10.11.sdk/usr/include"
+  cxx_builtin_include_directory: "/usr/lib/llvm-3.9/lib/clang/3.9.1/include/"
+  # JNI include directories.
+  # TODO(james): These can be removed if we configure Bazel to use this JDK.
+  cxx_builtin_include_directory: "/opt/jdk-8u162-macosx/include"
+  cxx_builtin_include_directory: "/opt/jdk-8u162-macosx/include/darwin"
+  compiler_flag: "-isystem"
+  compiler_flag: "/opt/jdk-8u162-macosx/include"
+  compiler_flag: "-isystem"
+  compiler_flag: "/opt/jdk-8u162-macosx/include/darwin"
+
+  # Cross-compiler tools.
+  tool_path {name: "ar" path: "linux_to_osx_ar_wrapper.sh" }
+  tool_path {name: "gcc" path: "linux_to_osx_cc_wrapper.sh" }
+  tool_path {name: "ld" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ld" }
+  tool_path {name: "nm" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-install_name_tool" }
+  tool_path {name: "objdump" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ObjectDump" }
+  tool_path {name: "ranlib" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ranlib" }
+  tool_path {name: "strip" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-strip" }
+
+  # Tools not provided by toolchain.
+  tool_path {name: "cpp" path: "/usr/bin/false" }
+  tool_path {name: "gcov" path: "/usr/bin/false" }
+
+  cxx_flag: "-std=c++14"
+
+  unfiltered_cxx_flag: "-Wno-builtin-macro-redefined"
+  unfiltered_cxx_flag: "-D__DATE__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIMESTAMP__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIME__=\"redacted\""
+  compiler_flag: "-U_FORTIFY_SOURCE"
+  compiler_flag: "-fstack-protector"
+  compiler_flag: "-Wall"
+  compiler_flag: "-fno-omit-frame-pointer"
+
+  compilation_mode_flags {
+    mode: DBG
+    compiler_flag: "-g"
+    compiler_flag: "-O"
+  }
+
+  compilation_mode_flags {
+    mode: FASTBUILD
+  }
+
+  compilation_mode_flags {
+    mode: OPT
+    compiler_flag: "-g0"
+    compiler_flag: "-O3"
+    compiler_flag: "-D_FORTIFY_SOURCE=1"
+    compiler_flag: "-DNDEBUG"
+    compiler_flag: "-ffunction-sections"
+    compiler_flag: "-fdata-sections"
+    linker_flag: "-Wl,--gc-sections"
+  }
+
+  linking_mode_flags { mode: DYNAMIC }
+
+    feature {
+      name: 'coverage'
+      provides: 'profile'
+      flag_set {
+        action: 'preprocess-assemble'
+        action: 'c-compile'
+        action: 'c++-compile'
+        action: 'c++-header-parsing'
+        action: 'c++-module-compile'
+        flag_group {
+        flag: '--coverage'
+      }
+      }
+      flag_set {
+        action: 'c++-link-dynamic-library'
+        action: 'c++-link-nodeps-dynamic-library'
+        action: 'c++-link-executable'
+        flag_group {
+        flag: '--coverage'
+      }
+      }
+    }
+
+  feature {
+    name: 'fdo_optimize'
+    provides: 'profile'
+    flag_set {
+      action: 'c-compile'
+      action: 'c++-compile'
+      expand_if_all_available: 'fdo_profile_path'
+      flag_group {
+        flag: '-fprofile-use=%{fdo_profile_path}'
+        flag: '-fprofile-correction',
+      }
+    }
+  }
+}
+
+toolchain {
+  toolchain_identifier: "osx-x86_64-clang-local"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
+  cxx_builtin_include_directory: "/usr/local/include"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.0/include"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"
+  cxx_builtin_include_directory: "/usr/include"
+  cxx_builtin_include_directory: "/System/Library/Frameworks"
+  cxx_builtin_include_directory: "/Library/Frameworks"
+  cxx_builtin_include_directory: "/Applications/Xcode.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode7.1.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.3.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.4.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode8.3.3.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode8.2.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.2.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.3.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode9.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode7.3.1.app/Contents/Developer"
+  cxx_builtin_include_directory: "/Applications/Xcode7.2.1.app/Contents/Developer"
   host_system_name: "x86_64-apple-macosx"
   target_system_name: "x86_64-apple-macosx"
-  target_cpu: "darwin_x86_64"
+  target_cpu: "darwin"
   target_libc: "macosx"
-  compiler: "compiler"
+  compiler: "osx-x86_64-clang-osx"
   abi_version: "darwin_x86_64"
   abi_libc_version: "darwin_x86_64"
   tool_path {
@@ -222,9 +332,6 @@ cxx_builtin_include_directory: "/Applications/Xcode7.2.1.app/Contents/Developer"
   objcopy_embed_flag: "binary"
   compilation_mode_flags {
     mode: FASTBUILD
-    compiler_flag: "-g"
-    compiler_flag: "-O1"
-    compiler_flag: "-DDEBUG"
   }
   compilation_mode_flags {
     mode: OPT

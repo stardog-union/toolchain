@@ -1,0 +1,121 @@
+major_version: "1"
+minor_version: "0"
+
+default_target_cpu: "darwin"
+
+default_toolchain {
+  cpu: "k8"
+  toolchain_identifier: "linux_to_osx"
+}
+
+toolchain {
+  toolchain_identifier: "linux_to_osx"
+  host_system_name: "local"
+  target_system_name: "x86_64-apple-macosx"
+  target_cpu: "k8"
+  target_libc: "macosx"
+
+  abi_version: "darwin_x86_64"
+  abi_libc_version: "darwin_x86_64"
+
+  builtin_sysroot: "/opt/osxcross/target/SDK/MacOSX10.11.sdk"
+  needsPic: true
+  supports_gold_linker: false
+  supports_incremental_linker: false
+  supports_fission: false
+  supports_interface_shared_objects: false
+  supports_normalizing_ar: false
+  supports_start_end_lib: false
+
+  compiler: "compiler"
+
+  cxx_builtin_include_directory: "/opt/osxcross/target/SDK/MacOSX10.11.sdk/usr/include/c++/v1"
+  cxx_builtin_include_directory: "/opt/osxcross/target/SDK/MacOSX10.11.sdk/usr/include"
+  cxx_builtin_include_directory: "/usr/lib/llvm-3.9/lib/clang/3.9.1/include/"
+
+  # Cross-compiler tools.
+  tool_path {name: "ar" path: "ar_wrapper.sh" }
+  tool_path {name: "gcc" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++" }
+  tool_path {name: "ld" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++" }
+  tool_path {name: "nm" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-install_name_tool" }
+  tool_path {name: "objdump" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ObjectDump" }
+  tool_path {name: "ranlib" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-ranlib" }
+  tool_path {name: "strip" path: "/opt/osxcross/target/bin/x86_64-apple-darwin15-strip" }
+
+  # Tools not provided by toolchain.
+  tool_path {name: "cpp" path: "/usr/bin/false" }
+  tool_path {name: "gcov" path: "/usr/bin/false" }
+
+  cxx_flag: "-std=c++14"
+
+  unfiltered_cxx_flag: "-Wno-builtin-macro-redefined"
+  unfiltered_cxx_flag: "-D__DATE__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIMESTAMP__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIME__=\"redacted\""
+  compiler_flag: "-U_FORTIFY_SOURCE"
+  compiler_flag: "-fstack-protector"
+  compiler_flag: "-Wall"
+  compiler_flag: "-fno-omit-frame-pointer"
+
+  compilation_mode_flags {
+    mode: DBG
+    compiler_flag: "-g"
+    compiler_flag: "-O"
+  }
+
+  compilation_mode_flags {
+    mode: FASTBUILD
+    compiler_flag: "-g"
+    compiler_flag: "-O"
+  }
+
+  compilation_mode_flags {
+    mode: OPT
+    compiler_flag: "-g0"
+    compiler_flag: "-O3"
+    compiler_flag: "-D_FORTIFY_SOURCE=1"
+    compiler_flag: "-DNDEBUG"
+    compiler_flag: "-ffunction-sections"
+    compiler_flag: "-fdata-sections"
+    linker_flag: "-Wl,--gc-sections"
+  }
+
+  linking_mode_flags { mode: DYNAMIC }
+
+    feature {
+      name: 'coverage'
+      provides: 'profile'
+      flag_set {
+        action: 'preprocess-assemble'
+        action: 'c-compile'
+        action: 'c++-compile'
+        action: 'c++-header-parsing'
+        action: 'c++-module-compile'
+        flag_group {
+        flag: '--coverage'
+      }
+      }
+      flag_set {
+        action: 'c++-link-dynamic-library'
+        action: 'c++-link-nodeps-dynamic-library'
+        action: 'c++-link-executable'
+        flag_group {
+        flag: '--coverage'
+      }
+      }
+    }
+
+  feature {
+    name: 'fdo_optimize'
+    provides: 'profile'
+    flag_set {
+      action: 'c-compile'
+      action: 'c++-compile'
+      expand_if_all_available: 'fdo_profile_path'
+      flag_group {
+        flag: '-fprofile-use=%{fdo_profile_path}'
+        flag: '-fprofile-correction',
+      }
+    }
+  }
+}
