@@ -27,7 +27,7 @@ cc_toolchain(
     objcopy_files = ":empty",
     static_runtime_libs = [":empty"],
     strip_files = ":empty",
-    supports_param_files = 0,
+    supports_param_files = 1,
     toolchain_identifier = "linux-x86_64-clang-local"
 )
 

@@ -36,12 +36,9 @@ toolchain {
   target_cpu: "k8"
   target_system_name: "local"
   cxx_flag: "-std=c++14"
-  linker_flag: "-fuse-ld=gold"
   linker_flag: "-Wl,-no-as-needed"
   linker_flag: "-Wl,-z,relro,-z,now"
   linker_flag: "-B/usr/bin"
-  linker_flag: "-lstdc++"
-  linker_flag: "-lm"
 
   cxx_builtin_include_directory: "/usr/lib/llvm-3.9/lib/clang/3.9.1/include"
   cxx_builtin_include_directory: "/usr/local/include"
@@ -63,7 +60,7 @@ toolchain {
   tool_path {name: "ar" path: "/usr/bin/ar" }
   tool_path {name: "ld" path: "/usr/bin/ld" }
   tool_path {name: "cpp" path: "/usr/bin/cpp" }
-  tool_path {name: "gcc" path: "/usr/bin/clang-3.9" }
+  tool_path {name: "gcc" path: "/usr/bin/clang++" }
   tool_path {name: "dwp" path: "/usr/bin/dwp" }
   tool_path {name: "gcov" path: "/usr/bin/gcov" }
   tool_path {name: "nm" path: "/usr/bin/nm" }
