@@ -4,6 +4,7 @@ cc_toolchain_suite(
     name = "toolchain",
     toolchains = {
         "k8|linux-x86_64-clang-linux": ":cc-compiler-linux-x86_64-local",
+        "k8": ":cc-compiler-linux-x86_64-local",
         "darwin|osx-x86_64-clang-osx": ":cc-compiler-osx-x86_64-local",
         # TODO(james): One of these is correct. Remove the other.
         "k8|osx-x86_64-clang-linux": ":cc-compiler-osx-x86_64-linux",
