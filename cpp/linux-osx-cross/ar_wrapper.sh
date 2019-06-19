@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 declare -a original_args
 declare -a final_ar_args
 declare -a final_ranlib_args
+
 declare want_ranlib=0
 declare archive_name=""
 declare next_is_archive_name=0
@@ -20,8 +21,6 @@ function preprocess {
 
 function get_args_from_file {
     local filename="$1"
-    echo "Deps filename: ${filename}"
-    cat "${filename}"
     while read -r line
     do
 	interpret_arg "${line}"
@@ -32,12 +31,10 @@ function interpret_arg {
     local arg="$1"
     if [[ "$arg" =~ ^-s$ ]]
     then
-	echo "${arg}: Want ranlib"
 	want_ranlib=1
     else
 	if (( $next_is_archive_name ))
 	then
-	    echo "Found archive name: $arg"
 	    archive_name="$arg"
 	fi
 
@@ -48,17 +45,16 @@ function interpret_arg {
 	    next_is_archive_name=0
 	fi
 
-	echo "${arg} doesnt specify ranlib"
 	original_args+=("$arg")
     fi
 }
 
 function munge_ar_args {
     local arg
-    final_ar_args+=("-r")
+    final_ar_args+=("rcs")
     for arg in "${original_args[@]}"
     do
-	if [[ ! "$arg" =~ ^-static$ && ! "$arg" =~ ^-o$ ]]
+	if [[ ! "$arg" =~ ^-static$ && ! "$arg" =~ ^-o$ && "$arg" != "rcsD" ]]
 	then
 	    final_ar_args+=("$arg")
 	fi
@@ -71,6 +67,7 @@ do
 done
 
 munge_ar_args
+
 echo "Result: /opt/osxcross/target/bin/x86_64-apple-darwin15-ar ${final_ar_args[@]}"
 /opt/osxcross/target/bin/x86_64-apple-darwin15-ar "${final_ar_args[@]}"
 

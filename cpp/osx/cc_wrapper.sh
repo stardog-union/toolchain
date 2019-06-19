@@ -53,7 +53,7 @@ done
 
 
 # Call the C++ compiler
-/usr/bin/gcc "$@"
+/usr/bin/clang "$@"
 
 function get_library_path() {
     for libdir in ${LIB_DIRS}; do

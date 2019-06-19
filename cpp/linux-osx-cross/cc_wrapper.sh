@@ -1,16 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 declare -a original_args
 declare -a final_args
 
 declare building_shared_library=0
 
+disallowed_args=(-Wl,--gc-sections -Wl,-no-as-needed -static-libgcc -Wl,-z,relro,-z,now -whole-archive -no-whole-archive)
+
 function preprocess {
     local arg="$1"
     local -a file_args
-    if [[ "$arg" =~ ^@ ]]
+    if [[ "$arg" =~ ^@(.*) || "$arg" =~ ^-Wl,@(.*) ]]
     then
-	get_args_from_file "${arg#'@'}"
+	get_args_from_file "${BASH_REMATCH[1]}"
     else
 	interpret_arg "${arg}"
     fi
@@ -24,6 +26,20 @@ function get_args_from_file {
     done < "${filename}"
 }
 
+function is_allowed {
+    local arg="$1"
+    for disallowed in "${disallowed_args[@]}"
+    do
+	if [ "$arg" == "$disallowed" ]
+	then
+	    false
+	    return
+	fi
+    done
+
+    true
+}
+
 function interpret_arg {
     local arg="$1"
     if [[ "$arg" =~ ^-shared$ ]]
@@ -31,8 +47,7 @@ function interpret_arg {
 	building_shared_library=1
     fi
 
-    # ld doesn't support --gc-sections.
-    if [[ ! "$arg" =~ ^-Wl,--gc-sections$ ]]
+    if is_allowed "$arg"
     then
 	original_args+=("$arg")
     fi
@@ -44,7 +59,14 @@ function munge_args {
 	final_args+=("-Wl,-undefined")
 	final_args+=("-Wl,dynamic_lookup")
     fi
-    final_args+=("${original_args[@]}")
+
+    for arg in "${original_args[@]}"
+    do
+	if is_allowed "$arg"
+	then
+	    final_args+=("$arg")
+	fi
+    done
 }
 
 for arg in "$@"
