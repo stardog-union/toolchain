@@ -1,146 +1,123 @@
 package(default_visibility = ["//visibility:public"])
+load(":toolchain_config.bzl", "cc_toolchain_config")
+
+LINUX_CC_TOOLCHAINS = [
+    ("k8", ":c++14-linux-x86_64-local-clang-3.9"),
+    ("k8|centos7", ":c++14-linux-x86_64-centos7-devtoolset-7-llvm"),
+    ("k8|linux-osx-cross", ":c++14-linux-x86_64-osx-cross"),
+]
 
 cc_toolchain_suite(
-    name = "toolchain",
-    toolchains = {
-        "k8|linux-x86_64-clang-linux": ":cc-compiler-linux-x86_64-local",
-        "k8": ":cc-compiler-linux-x86_64-local",
-        "darwin|osx-x86_64-clang-osx": ":cc-compiler-osx-x86_64-local",
-        # TODO(james): One of these is correct. Remove the other.
-        "k8|osx-x86_64-clang-linux": ":cc-compiler-osx-x86_64-linux",
-        "darwin|osx-x86_64-clang-linux": ":cc-compiler-osx-x86_64-linux",
-    },
+    name = "c++14",
+    toolchains = dict(LINUX_CC_TOOLCHAINS),
 )
 
-alias(
-    name = "cpp",
-    actual = ":toolchain",
-)
-
+# General Linux toolchain.
 cc_toolchain(
-    name = "cc-compiler-linux-x86_64-local",
-    all_files = ":compiler_deps",
-    compiler_files = ":compiler_deps",
-    cpu = "k8",
+    name = "c++14-linux-x86_64-local-clang-3.9",
+    toolchain_identifier = "c++14-linux-x86_64-local-clang-3.9",
+    toolchain_config = ":c++14-linux-x86_64-local-clang-3.9-config",
+    all_files = ":empty",
+    compiler_files = ":empty",
     dwp_files = ":empty",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":compiler_deps",
+    linker_files = ":empty",
     objcopy_files = ":empty",
-    static_runtime_libs = [":empty"],
     strip_files = ":empty",
-    supports_param_files = 1,
-    toolchain_identifier = "linux-x86_64-clang-local"
 )
 
 toolchain(
-    name = "cc-toolchain-linux-x86_64-local",
+    name = "c++14-linux-x86_64-local-clang-3.9-toolchain",
     exec_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
         "@bazel_tools//platforms:linux",
+        "//:generic_linux_distro",
     ],
     target_compatible_with = [
-        "//:linux-x86_64",
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:linux",
     ],
-    toolchain = ":cc-compiler-linux-x86_64-local",
+    toolchain = ":c++14-linux-x86_64-local-clang-3.9",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
-apple_cc_toolchain(
-    name = "cc-compiler-osx-x86_64-local",
-    all_files = ":tools-osx-x86_64-local",
-    compiler_files = ":tools-osx-x86_64-local",
-    cpu = "darwin_x86_64",
+cc_toolchain_config(
+    name = "c++14-linux-x86_64-local-clang-3.9-config",
+    cpu = "linux-x86_64",
+    compiler = "generic_compiler",
+    cc_dialect = "c++14",
+)
+
+# CentOS 7 Linux toolchain.
+cc_toolchain(
+    name = "c++14-linux-x86_64-centos7-devtoolset-7-llvm",
+    toolchain_identifier = "c++14-linux-x86_64-centos7-devtoolset-7-llvm",
+    toolchain_config = ":c++14-linux-x86_64-centos7-devtoolset-7-llvm-config",
+    all_files = ":empty",
+    compiler_files = ":empty",
     dwp_files = ":empty",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":tools-osx-x86_64-local",
+    linker_files = ":empty",
     objcopy_files = ":empty",
-    static_runtime_libs = [":empty"],
-    strip_files = ":tools-osx-x86_64-local",
-    supports_param_files = 0,
-    toolchain_identifier = "osx-x86_64-clang-local"
+    strip_files = ":empty",
 )
 
 toolchain(
-    name = "cc-toolchain-osx-x86_64-local",
+    name = "c++14-linux-x86_64-centos7-devtoolset-7-llvm-toolchain",
     exec_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:linux",
+        "//:centos7_distro",
+    ],
+    target_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:linux",
+    ],
+    toolchain = ":c++14-linux-x86_64-centos7-devtoolset-7-llvm",
+    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+)
+
+cc_toolchain_config(
+    name = "c++14-linux-x86_64-centos7-devtoolset-7-llvm-config",
+    cpu = "linux-x86_64",
+    compiler = "centos7",
+    cc_dialect = "c++14",
+)
+
+# Linux to OSX cross-compiling toolchain.
+cc_toolchain(
+    name = "c++14-linux-x86_64-osx-cross",
+    toolchain_identifier = "c++14-linux-x86_64-osx-cross",
+    toolchain_config = ":c++14-linux-x86_64-osx-cross-config",
+    all_files = "//cpp/linux-osx-cross:tools",
+    compiler_files = "//cpp/linux-osx-cross:tools",
+    dwp_files = "//cpp/linux-osx-cross:tools",
+    linker_files = "//cpp/linux-osx-cross:tools",
+    objcopy_files = "//cpp/linux-osx-cross:tools",
+    strip_files = "//cpp/linux-osx-cross:tools",
+)
+
+toolchain(
+    name = "c++14-linux-x86_64-osx-cross-toolchain",
+    exec_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:linux",
+    ],
+    target_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
         "@bazel_tools//platforms:osx",
     ],
-    target_compatible_with = [
-        "//:osx-x86_64",
-    ],
-    toolchain = ":cc-compiler-osx-x86_64-local",
+    toolchain = ":c++14-linux-x86_64-osx-cross",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
-filegroup(
-    name = "tools-osx-x86_64-local",
-    srcs = [
-        ":cc_wrapper",
-        ":libtool",
-        ":make_hashed_objlist.py",
-        ":wrapped_clang",
-        ":wrapped_clang_pp",
-        ":wrapped_ar",
-        ":xcrunwrapper.sh",
-    ],
+cc_toolchain_config(
+    name = "c++14-linux-x86_64-osx-cross-config",
+    cpu = "darwin",
+    compiler = "linux-osx-cross",
+    cc_dialect = "c++14",
 )
 
-filegroup(
-    name = "cc_wrapper",
-    srcs = ["cc_wrapper.sh"],
-)
+filegroup(name = "empty")
 
-# Cross-compile from Linux to OSX.
-cc_toolchain(
-    name = "cc-compiler-osx-x86_64-linux",
-    all_files = ":linux_to_osx_compiler_deps",
-    compiler_files = ":linux_to_osx_compiler_deps",
-    cpu = "k8",
-    dwp_files = ":empty",
-    dynamic_runtime_libs = [":empty"],
-    linker_files = ":linux_to_osx_compiler_deps",
-    objcopy_files = ":empty",
-    static_runtime_libs = [":empty"],
-    strip_files = ":empty",
-    supports_param_files = 0,
-    toolchain_identifier = "osx-x86_64-clang-linux"
-)
-
-toolchain(
-    name = "cc-toolchain-target-osx-x86_64-linux",
-    exec_compatible_with = [
-        "@bazel_tools//platforms:linux",
-    ],
-    target_compatible_with = [
-        "//:osx-x86_64",
-    ],
-    toolchain = ":cc-compiler-osx-x86_64-linux",
-    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
-)
-
-filegroup(
-    name = "linux_to_osx_compiler_deps",
-    srcs = [
-        "linux_to_osx_ar_wrapper.sh",
-        "linux_to_osx_cc_wrapper.sh",
-    ] + [":empty"],
-)
-
-# General utilities.
-# TODO(james): Determine which of these are really needed.
 cc_library(
     name = "malloc",
-)
-
-cc_library(
-    name = "stl",
-)
-
-filegroup(
-    name = "compiler_deps",
-    srcs = glob(["extra_tools/**"]) + [":empty"],
-)
-
-filegroup(
-    name = "empty",
-    srcs = [],
 )
