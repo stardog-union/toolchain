@@ -7,5 +7,5 @@ def cpp_register_toolchains(repo_name):
         "{}//cpp:c++14-linux-x86_64-osx-cross-toolchain".format(repo_name),
     )
     [ native.register_toolchains(
-        "{}//cpp:cc-toolchain-{}".format(repo_name, arch),
+        "{}//cpp/osx:cc-toolchain-{}".format(repo_name, arch),
     ) for arch in OSX_TOOLS_ARCHS ]
