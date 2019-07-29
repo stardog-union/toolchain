@@ -112,13 +112,24 @@ def configure_linux_toolchain(ctx):
         enabled = True,
         flag_sets = [
             flag_set(
-                actions = all_link_actions,
+                actions = [
+                    _CPP_LINK_EXECUTABLE_ACTION_NAME,
+                ],
                 flag_groups = [
                     flag_group(
                         flags = [
                             "-lstdc++",
                             "-lm",
                             "-lc",
+                        ],
+                    ),
+                ],
+            ),
+            flag_set(
+                actions = all_link_actions,
+                flag_groups = [
+                    flag_group(
+                        flags = [
                             "-Wl,-no-as-needed",
                             "-Wl,-z,relro,-z,now",
                         ],
