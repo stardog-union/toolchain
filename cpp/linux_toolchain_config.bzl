@@ -466,7 +466,7 @@ def configure_linux_toolchain(ctx):
             tool_path(name = "compat-ld", path = "/usr/bin/ld"),
             tool_path(name = "cpp", path = "/usr/bin/cpp"),
             tool_path(name = "dwp", path = "/usr/bin/dwp"),
-            tool_path(name = "gcc", path = "/opt/rh/llvm-toolset-7/root/usr/bin/clang"),
+            tool_path(name = "gcc", path = "/opt/rh/llvm-toolset-7/root/usr/bin/clang++"),
             tool_path(name = "gcov", path = "/usr/bin/gcov"),
             tool_path(name = "ld", path = "/usr/bin/ld"),
             tool_path(name = "nm", path = "/usr/bin/nm"),
