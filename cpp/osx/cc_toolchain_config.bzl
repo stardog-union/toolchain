@@ -4854,6 +4854,8 @@ def _impl(ctx):
                            "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers",
                            "-isystem",
                            "/System/Library/Frameworks/JavaVM.framework/Headers",
+                           "-isystem",
+                           "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/JavaVM.framework/Headers",
                        ],
                    ),
                 ],
