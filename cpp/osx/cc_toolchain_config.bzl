@@ -594,7 +594,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "<architecture>"]),
                         flag_group(
                             flags = [
@@ -657,7 +657,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "arm64"]),
                         flag_group(
                             flags = [
@@ -719,7 +719,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "arm64e"]),
                         flag_group(
                             flags = [
@@ -781,7 +781,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "armv7"]),
                         flag_group(
                             flags = [
@@ -843,7 +843,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "armv7k"]),
                         flag_group(
                             flags = [
@@ -906,7 +906,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "i386"]),
                         flag_group(
                             flags = [
@@ -971,7 +971,7 @@ def _impl(ctx):
             flag_sets = [
                 flag_set(
                     flag_groups = [
-                        flag_group(flags = ["-stdlib=libc++", "-std=gnu++11"]),
+                        flag_group(flags = ["-stdlib=libc++", "-std=c++14"]),
                         flag_group(flags = ["-arch", "x86_64"]),
                         flag_group(
                             flags = [
@@ -1238,7 +1238,7 @@ def _impl(ctx):
                                 "-arch",
                                 "<architecture>",
                                 "-stdlib=libc++",
-                                "-std=gnu++11",
+                                "-std=c++14",
                             ],
                         ),
                     ],
@@ -1275,7 +1275,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "arm64", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "arm64", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -1310,7 +1310,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "arm64e", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "arm64e", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -1345,7 +1345,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "armv7", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "armv7", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -1380,7 +1380,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "armv7k", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "armv7k", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -1416,7 +1416,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "i386", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "i386", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -1454,7 +1454,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "x86_64", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "x86_64", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -1490,7 +1490,7 @@ def _impl(ctx):
                 flag_set(
                     flag_groups = [
                         flag_group(
-                            flags = ["-arch", "x86_64", "-stdlib=libc++", "-std=gnu++11"],
+                            flags = ["-arch", "x86_64", "-stdlib=libc++", "-std=c++14"],
                         ),
                     ],
                 ),
@@ -4893,6 +4893,7 @@ def _impl(ctx):
                     flag_groups = [
                         flag_group(
                             flags = [
+                                "-D__APPLE__=1",
                                 "-D_FORTIFY_SOURCE=1",
                                 "-fstack-protector",
                                 "-fcolor-diagnostics",
@@ -5011,6 +5012,7 @@ def _impl(ctx):
                     flag_groups = [
                         flag_group(
                             flags = [
+                                "-D__APPLE__=1",
                                 "-D_FORTIFY_SOURCE=1",
                                 "-fstack-protector",
                                 "-fcolor-diagnostics",
