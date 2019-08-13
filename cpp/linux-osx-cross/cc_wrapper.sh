@@ -76,6 +76,7 @@ done
 
 munge_args
 
-echo "Result: /opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++ ${final_args[@]}"
-/opt/osxcross/target/bin/x86_64-apple-darwin15-clang++-libc++ "${final_args[@]}"
+echo "Result: /opt/osxcross/target/bin/x86_64-apple-darwin15-clang ${final_args[@]}"
+/opt/osxcross/target/bin/x86_64-apple-darwin15-clang "${final_args[@]}"
+
 exit $?
