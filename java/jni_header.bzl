@@ -1,5 +1,5 @@
 def _generate_headers(ctx):
-    command = "javac -h {} -classpath {} {}".format(ctx.outputs.out.path, ctx.attr.class_path, ctx.attr.class_name)
+    command = "javah -o {} -classpath {} {}".format(ctx.outputs.out.path, ctx.attr.class_path, ctx.attr.class_name)
     progress_message = "Generating JNI header for class '{}' as '{}'".format(ctx.attr.class_name, ctx.outputs.out.path)
 
     ctx.actions.run_shell(
