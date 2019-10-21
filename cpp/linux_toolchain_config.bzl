@@ -451,6 +451,7 @@ def configure_linux_toolchain(ctx):
         cxx_builtin_include_directories = [
             "/usr/lib/gcc/",
             "/usr/lib/clang/3.9.1/include",
+            "/usr/lib/clang/9.0.0/include",
             "/usr/lib/llvm-3.9/lib/clang/3.9.1/include/",
             "/usr/local/include",
             "/usr/include",
