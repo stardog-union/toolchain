@@ -14,4 +14,5 @@ register_toolchains(
     "//cpp:c++14-linux-x86_64-local-clang-3.9-toolchain",
     "//cpp:c++14-linux-x86_64-centos7-devtoolset-7-llvm-toolchain",
     "//cpp:c++14-linux-x86_64-osx-cross-toolchain",
+    "//cpp:c++14-windows-x86_64-local-clang-3.9-toolchain",
 )

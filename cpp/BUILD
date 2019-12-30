@@ -121,3 +121,37 @@ filegroup(name = "empty")
 cc_library(
     name = "malloc",
 )
+
+# Windows with clang-3.9
+cc_toolchain(
+    name = "c++14-windows-x86_64-local-clang-3.9",
+    toolchain_identifier = "c++14-windows-x86_64-local-clang-3.9",
+    toolchain_config = ":c++14-windows-x86_64-local-clang-3.9-config",
+    all_files = ":empty",
+    compiler_files = ":empty",
+    dwp_files = ":empty",
+    linker_files = ":empty",
+    objcopy_files = ":empty",
+    strip_files = ":empty",
+)
+
+toolchain(
+    name = "c++14-windows-x86_64-local-clang-3.9-toolchain",
+    exec_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:windows",
+    ],
+    target_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:windows",
+    ],
+    toolchain = ":c++14-windows-x86_64-local-clang-3.9",
+    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+)
+
+cc_toolchain_config(
+    name = "c++14-windows-x86_64-local-clang-3.9-config",
+    cpu = "x64_windows",
+    compiler = "generic_compiler",
+    cc_dialect = "c++14",
+)
