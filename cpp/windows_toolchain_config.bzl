@@ -1473,48 +1473,48 @@ def _impl(ctx):
             tool_path(name = "objdump", path = "/usr/bin/objdump"),
             tool_path(name = "strip", path = "/usr/bin/strip"),
         ]
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang"):
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
         tool_paths = [
             tool_path(name = "ar", path = "C:/mingw/bin/ar"),
             tool_path(
                 name = "compat-ld",
-                path = "C:/Program Files (x86)/LLVM/bin/ld",
+                path = "C:/Program Files/LLVM/bin/ld.lld.exe",
             ),
             tool_path(
                 name = "cpp",
-                path = "C:/Program Files (x86)/LLVM/bin/cpp",
+                path = "C:/Program Files/LLVM/bin/clang.exe",
             ),
             tool_path(
                 name = "dwp",
-                path = "C:/Program Files (x86)/LLVM/bin/dwp",
+                path = "C:/Program Files/LLVM/bin/dwp",
             ),
             tool_path(
                 name = "gcc",
-                path = "C:/Program Files (x86)/LLVM/bin/clang",
+                path = "C:/Program Files/LLVM/bin/clang.exe",
             ),
             tool_path(
                 name = "gcov",
-                path = "C:/Program Files (x86)/LLVM/bin/gcov",
+                path = "C:/Program Files/LLVM/bin/gcov",
             ),
             tool_path(
                 name = "ld",
-                path = "C:/Program Files (x86)/LLVM/bin/ld",
+                path = "C:/Program Files/LLVM/bin/ld.ldd.exe",
             ),
             tool_path(
                 name = "nm",
-                path = "C:/Program Files (x86)/LLVM/bin/nm",
+                path = "C:/Program Files/LLVM/bin/nm",
             ),
             tool_path(
                 name = "objcopy",
-                path = "C:/Program Files (x86)/LLVM/bin/objcopy",
+                path = "C:/Program Files/LLVM/bin/objcopy",
             ),
             tool_path(
                 name = "objdump",
-                path = "C:/Program Files (x86)/LLVM/bin/objdump",
+                path = "C:/Program Files/LLVM/bin/objdump",
             ),
             tool_path(
                 name = "strip",
-                path = "C:/Program Files (x86)/LLVM/bin/strip",
+                path = "C:/Program Files/LLVM/bin/strip",
             ),
         ]
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
