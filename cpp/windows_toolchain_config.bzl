@@ -93,7 +93,7 @@ def _impl(ctx):
         toolchain_identifier = "local_freebsd"
     elif (ctx.attr.cpu == "linux-x86_64"):
         toolchain_identifier = "local_linux"
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang"):
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
         toolchain_identifier = "local_windows_clang"
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
         toolchain_identifier = "local_windows_mingw"
