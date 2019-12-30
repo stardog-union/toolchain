@@ -165,8 +165,8 @@ def _impl(ctx):
           ctx.attr.cpu == "freebsd" or
           ctx.attr.cpu == "linux-x86_64"):
         compiler = "compiler"
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang"):
-        compiler = "windows_clang"
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
+        compiler = "clang-3.9"
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
         compiler = "windows_mingw"
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_msys64"):
@@ -210,11 +210,11 @@ def _impl(ctx):
             enabled = True,
             tools = [tool(path = "/usr/bin/objcopy")],
         )
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang"):
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
         objcopy_embed_data_action = action_config(
             action_name = "objcopy_embed_data",
             enabled = True,
-            tools = [tool(path = "C:/Program Files (x86)/LLVM/bin/objcopy")],
+            tools = [tool(path = "C:/Program Files/LLVM/bin/objcopy")],
         )
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
         objcopy_embed_data_action = action_config(
@@ -922,7 +922,7 @@ def _impl(ctx):
                 ),
             ],
         )
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang" or
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9" or
           ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw" or
           ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_msys64_mingw64"):
         default_compile_flags_feature = feature(
@@ -1256,7 +1256,7 @@ def _impl(ctx):
             sysroot_feature,
             unfiltered_compile_flags_feature,
         ]
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang" or
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9" or
           ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw" or
           ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_msys64_mingw64"):
         features = [
@@ -1318,7 +1318,7 @@ def _impl(ctx):
             "/usr/local/include",
             "/usr/include",
         ]
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_clang"):
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
         cxx_builtin_include_directories = ["/usr/lib/gcc/", "/usr/local/include", "/usr/include"]
     elif (ctx.attr.cpu == "x64_windows_msvc"):
         cxx_builtin_include_directories = [
