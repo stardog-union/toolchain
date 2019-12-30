@@ -153,6 +153,6 @@ toolchain(
 cc_toolchain_config(
     name = "c++14-windows-x86_64-local-clang-3.9-config",
     cpu = "x64_windows",
-    compiler = "generic_compiler",
+    compiler = "clang-3.9",
     cc_dialect = "c++14",
 )
