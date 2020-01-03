@@ -405,14 +405,6 @@ def configure_windows_clang_toolchain(ctx):
                     flag_groups = [
                         flag_group(
                             flags = [
-                                "-isystem",
-                                "/usr/lib/jvm/default-java/include",
-                                "-isystem",
-                                "/usr/lib/jvm/default-java/include/linux",
-                                "-isystem",
-                                "/usr/lib/jvm/default/include",
-                                "-isystem",
-                                "/usr/lib/jvm/default/include/linux",
                             ],
                         ),
                     ],
