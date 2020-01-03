@@ -447,6 +447,12 @@ def configure_windows_clang_toolchain(ctx):
             "/usr/lib/jvm/java/include",
             "/usr/lib/jvm/java/include/linux",
         ]
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
+        cxx_builtin_include_directories = [
+            "C:/Program Files/LLVM/lib/clang/3.9.1/include/",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
+            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
+       ]
     else:
         cxx_builtin_include_directories = [
             "/usr/lib/gcc/",
