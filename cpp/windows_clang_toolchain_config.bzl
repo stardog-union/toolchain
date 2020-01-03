@@ -406,6 +406,7 @@ def configure_windows_clang_toolchain(ctx):
                         flag_group(
                             flags = [
                             "-IC:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
+                            "-IC:/Program Files/Java/jdk1.8.0_231/include",
                             ],
                         ),
                     ],
