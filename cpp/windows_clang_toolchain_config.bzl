@@ -405,6 +405,7 @@ def configure_windows_clang_toolchain(ctx):
                     flag_groups = [
                         flag_group(
                             flags = [
+                            "-IC:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
                             ],
                         ),
                     ],
