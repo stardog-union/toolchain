@@ -8,10 +8,10 @@ LINUX_CC_TOOLCHAINS = [
 #    ("x64_windows", ":c++14-windows-x86_64-local-clang-3.9"),
 ]
 
-cc_toolchain_suite(
-    name = "c++14",
-    toolchains = dict(LINUX_CC_TOOLCHAINS),
-)
+#cc_toolchain_suite(
+#    name = "c++14",
+#    toolchains = dict(LINUX_CC_TOOLCHAINS),
+#)
 
 # General Linux toolchain.
 cc_toolchain(
