@@ -5,7 +5,8 @@ LINUX_CC_TOOLCHAINS = [
     ("k8", ":c++14-linux-x86_64-local-clang-3.9"),
     ("k8|centos7", ":c++14-linux-x86_64-centos7-devtoolset-7-llvm"),
     ("k8|linux-osx-cross", ":c++14-linux-x86_64-osx-cross"),
-    ("x64_windows", ":c++14-windows-x86_64-local-clang-3.9"),
+#    ("x64_windows", ":c++14-windows-x86_64-local-clang-3.9"),
+    ("x64_windows", ":c++14-windows-x86_64-local-msvc-2019"),
 ]
 
 cc_toolchain_suite(
@@ -154,5 +155,39 @@ cc_toolchain_config(
     name = "c++14-windows-x86_64-local-clang-3.9-config",
     cpu = "x64_windows",
     compiler = "clang-3.9",
+    cc_dialect = "c++14",
+)
+
+# Windows with visual studio 2019
+cc_toolchain(
+    name = "c++14-windows-x86_64-local-msvc-2019",
+    toolchain_identifier = "c++14-windows-x86_64-local-msvc-2019",
+    toolchain_config = ":c++14-windows-x86_64-local-msvc-2019-config",
+    all_files = ":empty",
+    compiler_files = ":empty",
+    dwp_files = ":empty",
+    linker_files = ":empty",
+    objcopy_files = ":empty",
+    strip_files = ":empty",
+)
+
+toolchain(
+    name = "c++14-windows-x86_64-local-msvc-2019-toolchain",
+    exec_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:windows",
+    ],
+    target_compatible_with = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:windows",
+    ],
+    toolchain = ":c++14-windows-x86_64-local-msvc-2019",
+    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
+)
+
+cc_toolchain_config(
+    name = "c++14-windows-x86_64-local-msvc-2019-config",
+    cpu = "x64_windows",
+    compiler = "msvc-cl",
     cc_dialect = "c++14",
 )
