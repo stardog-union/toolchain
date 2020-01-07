@@ -99,6 +99,7 @@ def configure_windows_msvc_toolchain(ctx):
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt"
+        "C:\\Program Files\\Java\\jdk1.8.0_231\\include"
     ]
 
     cpp_link_nodeps_dynamic_library_action = action_config(
@@ -606,7 +607,7 @@ def configure_windows_msvc_toolchain(ctx):
                     ACTION_NAMES.assemble,
                     ACTION_NAMES.preprocess_assemble,
                 ],
-                env_entries = [env_entry(key = "INCLUDE", value = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\VC\\Tools\\MSVC\\14.24.28314\\include;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\ucrt;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\shared;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt")],
+                env_entries = [env_entry(key = "INCLUDE", value = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\VC\\Tools\\MSVC\\14.24.28314\\include;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\ucrt;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\shared;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt;C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt;C:\\Program Files\\Java\\jdk1.8.0_231\\include")],
             ),
         ],
     )
@@ -1282,6 +1283,7 @@ def _windows_msys_mingw_impl(ctx):
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt"
+        "C:\\Program Files\\Java\\jdk1.8.0_231\\include"
     ]
 
     artifact_name_patterns = [
@@ -1414,6 +1416,7 @@ def _impl(ctx):
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt"
+        "C:\\Program Files\\Java\\jdk1.8.0_231\\include"
     ]
 
     action_configs = []
