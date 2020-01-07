@@ -98,7 +98,7 @@ def configure_windows_msvc_toolchain(ctx):
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\shared",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt",
-        "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt"
+        "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt",
         "C:\\Program Files\\Java\\jdk1.8.0_231\\include"
     ]
 
@@ -1282,7 +1282,7 @@ def _windows_msys_mingw_impl(ctx):
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\shared",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt",
-        "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt"
+        "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt",
         "C:\\Program Files\\Java\\jdk1.8.0_231\\include"
     ]
 
@@ -1415,7 +1415,7 @@ def _impl(ctx):
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\shared",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\um",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\winrt",
-        "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt"
+        "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\cppwinrt",
         "C:\\Program Files\\Java\\jdk1.8.0_231\\include"
     ]
 
