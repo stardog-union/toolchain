@@ -1377,7 +1377,7 @@ def _impl(ctx):
     if ctx.attr.cpu == "armeabi-v7a":
         return _armeabi_impl(ctx)
     elif ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "msvc-cl":
-        return _windows_msvc_impl(ctx)
+        return configure_windows_msvc_toolchain(ctx)
     elif ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "mingw-gcc":
         return _windows_msys_mingw_impl(ctx)
 
