@@ -79,7 +79,7 @@ all_link_actions = [
     ACTION_NAMES.cpp_link_nodeps_dynamic_library,
 ]
 
-def _windows_msvc_impl(ctx):
+# def _windows_msvc_impl(ctx):
 def configure_windows_msvc_toolchain(ctx):
     toolchain_identifier = "msvc_x64"
     host_system_name = "local"
