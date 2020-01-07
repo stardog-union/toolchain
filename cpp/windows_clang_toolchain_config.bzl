@@ -481,43 +481,43 @@ def configure_windows_clang_toolchain(ctx):
             tool_path(name = "ar", path = "C:/mingw/bin/ar"),
             tool_path(
                 name = "compat-ld",
-                path = "C:/Program Files/LLVM/bin/ld.lld.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld.lld.exe",
             ),
             tool_path(
                 name = "cpp",
-                path = "C:/Program Files/LLVM/bin/clang.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/clang.exe",
             ),
             tool_path(
                 name = "dwp",
-                path = "C:/Program Files/LLVM/bin/dwp",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/dwp",
             ),
             tool_path(
                 name = "gcc",
-                path = "C:/Program Files/LLVM/bin/clang.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/clang.exe",
             ),
             tool_path(
                 name = "gcov",
-                path = "C:/Program Files/LLVM/bin/gcov",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/gcov",
             ),
             tool_path(
                 name = "ld",
-                path = "C:/Program Files/LLVM/bin/ld.ldd.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld.ldd.exe",
             ),
             tool_path(
                 name = "nm",
-                path = "C:/Program Files/LLVM/bin/nm",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/nm",
             ),
             tool_path(
                 name = "objcopy",
-                path = "C:/Program Files/LLVM/bin/objcopy",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/objcopy",
             ),
             tool_path(
                 name = "objdump",
-                path = "C:/Program Files/LLVM/bin/objdump",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/objdump",
             ),
             tool_path(
                 name = "strip",
-                path = "C:/Program Files/LLVM/bin/strip",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/strip",
             ),
         ]
 
