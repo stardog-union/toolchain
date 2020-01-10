@@ -16,21 +16,21 @@
 # List of architectures supported by osx crosstool.
 OSX_TOOLS_NON_DEVICE_ARCHS = [
     "darwin_x86_64",
-    "ios_i386",
-    "ios_x86_64",
-    "watchos_i386",
-    "watchos_x86_64",
-    "tvos_x86_64",
+#    "ios_i386",
+#    "ios_x86_64",
+#    "watchos_i386",
+#    "watchos_x86_64",
+#    "tvos_x86_64",
 ]
 
 OSX_TOOLS_ARCHS = [
-    "armeabi-v7a",
-    "ios_armv7",
-    "ios_arm64",
-    "ios_arm64e",
-    "watchos_armv7k",
-    "watchos_arm64_32",
-    "tvos_arm64",
+#    "armeabi-v7a",
+#    "ios_armv7",
+#    "ios_arm64",
+#    "ios_arm64e",
+#    "watchos_armv7k",
+#    "watchos_arm64_32",
+#    "tvos_arm64",
 ] + OSX_TOOLS_NON_DEVICE_ARCHS
 
 # Target constraints for each arch.
@@ -38,16 +38,16 @@ OSX_TOOLS_ARCHS = [
 # TODO(apple-rules): Add constraints for watchos and tvos.
 OSX_TOOLS_CONSTRAINTS = {
     "darwin_x86_64": ["@bazel_tools//platforms:osx", "@bazel_tools//platforms:x86_64"],
-    "ios_i386": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_32"],
-    "ios_x86_64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_64"],
-    "watchos_i386": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_32"],
-    "watchos_x86_64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_64"],
-    "tvos_x86_64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_64"],
-    "armeabi-v7a": ["@bazel_tools//platforms:arm"],
-    "ios_armv7": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:arm"],
-    "ios_arm64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
-    "ios_arm64e": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
-    "watchos_armv7k": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:arm"],
-    "watchos_arm64_32": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
-    "tvos_arm64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
+#    "ios_i386": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_32"],
+#    "ios_x86_64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_64"],
+#    "watchos_i386": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_32"],
+#    "watchos_x86_64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_64"],
+#    "tvos_x86_64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:x86_64"],
+#    "armeabi-v7a": ["@bazel_tools//platforms:arm"],
+#    "ios_armv7": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:arm"],
+#    "ios_arm64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
+#    "ios_arm64e": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
+#    "watchos_armv7k": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:arm"],
+#    "watchos_arm64_32": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
+#    "tvos_arm64": ["@bazel_tools//platforms:ios", "@bazel_tools//platforms:aarch64"],
 }
