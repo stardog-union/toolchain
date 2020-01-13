@@ -14,8 +14,8 @@ def _selector(ctx):
     #     return configure_osx_toolchain(ctx)
     # elif (ctx.attr.cpu == "freebsd"):
     #     toolchain_identifier = "local_freebsd"
-#    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
-#        return configure_windows_clang_toolchain(ctx)
+    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
+        return configure_windows_clang_toolchain(ctx)
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "msvc-cl"):
         return configure_windows_msvc_toolchain(ctx)
     # elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
