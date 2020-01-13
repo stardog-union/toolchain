@@ -434,49 +434,13 @@ def configure_windows_clang_toolchain(ctx):
         unfiltered_compile_flags_feature,
     ]
 
-    if (ctx.attr.compiler == "centos7"):
+    if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
         cxx_builtin_include_directories = [
-            "/opt/rh/devtoolset-7/root/usr/include/c++/7",
-            "/opt/rh/llvm-toolset-7/root/usr/lib64/clang/5.0.1/include",
-            "/usr/include",
-            "/usr/lib/jvm/java/include",
-            "/usr/lib/jvm/java/include/linux",
-        ]
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
-        cxx_builtin_include_directories = [
-            "C:/Program Files/LLVM/lib/clang/3.9.1/include/",
             "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
             "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
        ]
-    else:
-        cxx_builtin_include_directories = [
-            "/usr/lib/gcc/",
-            "/usr/lib/clang/3.9.1/include",
-            "/usr/lib/clang/9.0.0/include",
-            "/usr/lib/llvm-3.9/lib/clang/3.9.1/include/",
-            "/usr/local/include",
-            "/usr/include",
-            "/usr/lib/jvm/default-java/include",
-            "/usr/lib/jvm/default-java/include/linux",
-            "/usr/lib/jvm/default/include",
-            "/usr/lib/jvm/default/include/linux",
-        ]
 
-    if (ctx.attr.cpu == "linux-x86_64" and ctx.attr.compiler == "centos7"):
-        tool_paths = [
-            tool_path(name = "ar", path = "/usr/bin/ar"),
-            tool_path(name = "compat-ld", path = "/usr/bin/ld"),
-            tool_path(name = "cpp", path = "/usr/bin/cpp"),
-            tool_path(name = "dwp", path = "/usr/bin/dwp"),
-            tool_path(name = "gcc", path = "/opt/rh/llvm-toolset-7/root/usr/bin/clang"),
-            tool_path(name = "gcov", path = "/usr/bin/gcov"),
-            tool_path(name = "ld", path = "/usr/bin/ld"),
-            tool_path(name = "nm", path = "/usr/bin/nm"),
-            tool_path(name = "objcopy", path = "/usr/bin/objcopy"),
-            tool_path(name = "objdump", path = "/usr/bin/objdump"),
-            tool_path(name = "strip", path = "/usr/bin/strip"),
-        ]
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-3.9"):
+    if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
         tool_paths = [
             tool_path(name = "ar", path = "C:/mingw/bin/ar"),
             tool_path(
@@ -521,20 +485,6 @@ def configure_windows_clang_toolchain(ctx):
             ),
         ]
 
-    else:
-        tool_paths = [
-            tool_path(name = "ar", path = "/usr/bin/ar"),
-            tool_path(name = "compat-ld", path = "/usr/bin/ld"),
-            tool_path(name = "cpp", path = "/usr/bin/cpp"),
-            tool_path(name = "dwp", path = "/usr/bin/dwp"),
-            tool_path(name = "gcc", path = "/usr/bin/clang"),
-            tool_path(name = "gcov", path = "/usr/bin/gcov"),
-            tool_path(name = "ld", path = "/usr/bin/ld"),
-            tool_path(name = "nm", path = "/usr/bin/nm"),
-            tool_path(name = "objcopy", path = "/usr/bin/objcopy"),
-            tool_path(name = "objdump", path = "/usr/bin/objdump"),
-            tool_path(name = "strip", path = "/usr/bin/strip"),
-        ]
 
     artifact_name_patterns = []
     make_variables = []

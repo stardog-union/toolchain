@@ -5,8 +5,8 @@ LINUX_CC_TOOLCHAINS = [
     ("k8", ":c++14-linux-x86_64-local-clang-3.9"),
     ("k8|centos7", ":c++14-linux-x86_64-centos7-devtoolset-7-llvm"),
     ("k8|linux-osx-cross", ":c++14-linux-x86_64-osx-cross"),
-#    ("x64_windows", ":c++14-windows-x86_64-local-clang-3.9"),
-    ("x64_windows", ":c++14-windows-x86_64-local-msvc-2019"),
+    ("x64_windows|clang-vc2019", ":c++14-windows-x86_64-local-clang-vc2019"),
+    ("x64_windows|msvc-cl", ":c++14-windows-x86_64-local-msvc-2019"),
 ]
 
 cc_toolchain_suite(
@@ -124,11 +124,11 @@ cc_library(
     name = "malloc",
 )
 
-# Windows with clang-3.9
+# Windows with clang-vc2019
 cc_toolchain(
-    name = "c++14-windows-x86_64-local-clang-3.9",
-    toolchain_identifier = "c++14-windows-x86_64-local-clang-3.9",
-    toolchain_config = ":c++14-windows-x86_64-local-clang-3.9-config",
+    name = "c++14-windows-x86_64-local-clang-vc2019",
+    toolchain_identifier = "c++14-windows-x86_64-local-clang-vc2019",
+    toolchain_config = ":c++14-windows-x86_64-local-clang-vc2019-config",
     all_files = ":empty",
     compiler_files = ":empty",
     dwp_files = ":empty",
@@ -138,7 +138,7 @@ cc_toolchain(
 )
 
 toolchain(
-    name = "c++14-windows-x86_64-local-clang-3.9-toolchain",
+    name = "c++14-windows-x86_64-local-clang-vc2019-toolchain",
     exec_compatible_with = [
         "@bazel_tools//platforms:x86_64",
         "@bazel_tools//platforms:windows",
@@ -147,14 +147,14 @@ toolchain(
         "@bazel_tools//platforms:x86_64",
         "@bazel_tools//platforms:windows",
     ],
-    toolchain = ":c++14-windows-x86_64-local-clang-3.9",
+    toolchain = ":c++14-windows-x86_64-local-clang-vc2019",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
 cc_toolchain_config(
-    name = "c++14-windows-x86_64-local-clang-3.9-config",
+    name = "c++14-windows-x86_64-local-clang-vc2019-config",
     cpu = "x64_windows",
-    compiler = "clang-3.9",
+    compiler = "clang-vc2019",
     cc_dialect = "c++14",
 )
 
