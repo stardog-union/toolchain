@@ -175,7 +175,8 @@ def configure_windows_clang_toolchain(ctx):
         ],
     )
 
-    supports_pic_feature = feature(name = "supports_pic", enabled = True)
+#mev    supports_pic_feature = feature(name = "supports_pic", enabled = True)
+    supports_pic_feature = feature(name = "supports_pic", enabled = False)
 
     default_compile_flags_feature = feature(
         name = "default_compile_flags",
