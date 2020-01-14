@@ -377,6 +377,7 @@ def configure_windows_clang_toolchain(ctx):
                             "-IC:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared",
                             "-IC:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
                             "-IC:/Program Files/Java/jdk1.8.0_231/include",
+                            "-IC:/Program Files/Java/jdk1.8.0_231/include/win32",
                             ],
                         ),
                     ],
@@ -409,6 +410,8 @@ def configure_windows_clang_toolchain(ctx):
             "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
             "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um",
             "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared",
+            "C:/Program Files/Java/jdk1.8.0_231/include",
+            "C:/Program Files/Java/jdk1.8.0_231/include/win32",
        ]
 
     if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
