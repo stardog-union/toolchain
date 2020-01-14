@@ -350,41 +350,7 @@ def configure_windows_clang_toolchain(ctx):
         ],
     )
 
-    if (ctx.attr.compiler == "centos7"):
-        system_include_flags_feature = feature(
-            name = "system_include_flags",
-            enabled = True,
-            flag_sets = [
-                flag_set(
-                    actions = [
-                        _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                        _LINKSTAMP_COMPILE_ACTION_NAME,
-                        _C_COMPILE_ACTION_NAME,
-                        _CPP_COMPILE_ACTION_NAME,
-                        _CPP_HEADER_PARSING_ACTION_NAME,
-                        _CPP_MODULE_COMPILE_ACTION_NAME,
-                        _CPP_MODULE_CODEGEN_ACTION_NAME,
-                        _LTO_BACKEND_ACTION_NAME,
-                        _CLIF_MATCH_ACTION_NAME,
-                        _CPP_LINK_EXECUTABLE_ACTION_NAME,
-                        _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME,
-                        _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME,
-                    ],
-                    flag_groups = [
-                        flag_group(
-                            flags = [
-                                "-isystem",
-                                "/usr/lib/jvm/java/include",
-                                "-isystem",
-                                "/usr/lib/jvm/java/include/linux",
-                            ],
-                        ),
-                    ],
-                ),
-            ],
-        )
-    else:
-        system_include_flags_feature = feature(
+    system_include_flags_feature = feature(
             name = "system_include_flags",
             enabled = True,
             flag_sets = [
@@ -441,6 +407,8 @@ def configure_windows_clang_toolchain(ctx):
         cxx_builtin_include_directories = [
             "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
             "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
+            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um",
+            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared",
        ]
 
     if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
