@@ -165,6 +165,7 @@ def configure_windows_clang_toolchain(ctx):
                     flag_group(
                         flags = [
                             "-Wno-builtin-macro-redefined",
+                            "-Wno-ignored-attributes",
                             "-D__DATE__=\"redacted\"",
                             "-D__TIMESTAMP__=\"redacted\"",
                             "-D__TIME__=\"redacted\"",
@@ -202,6 +203,7 @@ def configure_windows_clang_toolchain(ctx):
                             "-D_FORTIFY_SOURCE=1",
                             "-fstack-protector",
                             "-Wall",
+                            "-Wno-ignored-attributes",
                             "-fno-omit-frame-pointer",
                         ],
                     ),
