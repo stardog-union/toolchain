@@ -422,7 +422,10 @@ def configure_windows_clang_toolchain(ctx):
 
     if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
         tool_paths = [
-            tool_path(name = "ar", path = "C:/mingw/bin/ar"),
+            tool_path(
+                name = "ar",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/llvm-ar.exe",
+            ),
             tool_path(
                 name = "compat-ld",
                 path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld.lld.exe",
