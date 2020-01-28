@@ -388,12 +388,12 @@ def configure_windows_clang_toolchain(ctx):
                     flag_groups = [
                         flag_group(
                             flags = [
-                            "-IC:/Program\ Files\ (x86)/Windows\ Kits/10/Include/10.0.18362.0/ucrt",
-                            "-IC:/Program\ Files\ (x86)/Windows\ Kits/10/Include/10.0.18362.0/um",
-                            "-IC:/Program\ Files\ (x86)/Windows\ Kits/10/Include/10.0.18362.0/shared",
-                            "-IC:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
-                            "-IC:/Program\ Files/Java/jdk1.8.0_231/include",
-                            "-IC:/Program\ Files/Java/jdk1.8.0_231/include/win32",
+                            "-IC:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
+                            "-IC:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um",
+                            "-IC:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared",
+                            "-IC:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
+                            "-IC:/Program Files/Java/jdk1.8.0_231/include",
+                            "-IC:/Program Files/Java/jdk1.8.0_231/include/win32",
                             ],
                         ),
                     ],
