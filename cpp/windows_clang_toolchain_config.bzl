@@ -131,7 +131,7 @@ def configure_windows_clang_toolchain(ctx):
                     flag_group(
                         flags = [
                             "-Wl,-no-as-needed",
-                            "-Wl,-z,relro,-z,now",
+#mev                            "-Wl,-z,relro,-z,now",
                         ],
                     ),
                 ],
@@ -388,12 +388,13 @@ def configure_windows_clang_toolchain(ctx):
                     flag_groups = [
                         flag_group(
                             flags = [
-                            "-IC:/Program\ Files\ (x86)/Windows\ Kits/10/Include/10.0.18362.0/ucrt",
-                            "-IC:/Program\ Files\ (x86)/Windows\ Kits/10/Include/10.0.18362.0/um",
-                            "-IC:/Program\ Files\ (x86)/Windows\ Kits/10/Include/10.0.18362.0/shared",
-                            "-IC:/Program\ Files\ (x86)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
-                            "-IC:/Program\ Files/Java/jdk1.8.0_231/include",
-                            "-IC:/Program\ Files/Java/jdk1.8.0_231/include/win32",
+                            "-IC:/includes/windows_kits/Include/10.0.18362.0/ucrt",
+                            "-IC:/includes/windows_kits/Include/10.0.18362.0/um",
+                            "-IC:/includes/windows_kits/Include/10.0.18362.0/shared",
+                            "-IC:/includes/visual_studio/Professional/VC/Tools/MSVC/14.24.28314/include",
+                            "-IC:/includes/jdk/include",
+                            "-IC:/includes/jdk/include/win32",
+                            "-IC:/includes/clang/include",
                             ],
                         ),
                     ],
@@ -420,14 +421,21 @@ def configure_windows_clang_toolchain(ctx):
         unfiltered_compile_flags_feature,
     ]
 
+    # Compiling seemed to work ok with spaces in paths.  Linking did not (due to use of param
+    #   file instead of params on command line).  Create equivalent paths without spaces.
+    # mklink /j visual_studio "C:\Program Files (x86)\Microsoft Visual Studio\2019"
+    # mklink /j windows_kits "C:/Program Files (x86)/Windows Kits/10"
+    # mklink /j jdk "C:/Program Files/Java/jdk1.8.0_231"
+    # mklink /j clang "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/lib/clang/9.0.0"
     if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
         cxx_builtin_include_directories = [
-            "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/include",
-            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt",
-            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/um",
-            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/shared",
-            "C:/Program Files/Java/jdk1.8.0_231/include",
-            "C:/Program Files/Java/jdk1.8.0_231/include/win32",
+            "C:/includes/visual_studio/Professional/VC/Tools/MSVC/14.24.28314/include",
+            "C:/includes/windows_kits/Include/10.0.18362.0/ucrt",
+            "C:/includes/windows_kits/Include/10.0.18362.0/um",
+            "C:/includes/windows_kits/Include/10.0.18362.0/shared",
+            "C:/includes/jdk/include",
+            "C:/includes/jdk/include/win32",
+            "C:/includes/clang/include",
        ]
 
     if (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
