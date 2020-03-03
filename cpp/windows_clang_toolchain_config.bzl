@@ -131,6 +131,11 @@ def configure_windows_clang_toolchain(ctx):
                     flag_group(
                         flags = [
                             "-Wl,/MACHINE:X64",
+                            "-L/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/ATLMFC/lib/x64",
+                            "-L/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/lib/x64",
+                            "-L/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/4.8/lib/um/x64",
+                            "-L/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/10.0.18362.0/ucrt/x64",
+                            "-L/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/10.0.18362.0/um/x64",
 #                            "-Wl,-no-as-needed",
 #mev                            "-Wl,-z,relro,-z,now",
                         ],
