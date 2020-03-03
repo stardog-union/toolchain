@@ -130,6 +130,7 @@ def configure_windows_clang_toolchain(ctx):
                 flag_groups = [
                     flag_group(
                         flags = [
+                            "-m64",
                             "-Wl,/MACHINE:X64",
                             "-L/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/ATLMFC/lib/x64",
                             "-L/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/lib/x64",
