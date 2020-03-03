@@ -450,7 +450,7 @@ def configure_windows_clang_toolchain(ctx):
             ),
             tool_path(
                 name = "compat-ld",
-                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld.lld.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld64.lld.exe",
             ),
             tool_path(
                 name = "cpp",
@@ -470,7 +470,7 @@ def configure_windows_clang_toolchain(ctx):
             ),
             tool_path(
                 name = "ld",
-                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld.ldd.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld64.ldd.exe",
             ),
             tool_path(
                 name = "nm",
