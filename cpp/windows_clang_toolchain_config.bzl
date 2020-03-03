@@ -470,7 +470,7 @@ def configure_windows_clang_toolchain(ctx):
             ),
             tool_path(
                 name = "ld",
-                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld64.ldd.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/ld64.lld.exe",
             ),
             tool_path(
                 name = "nm",
