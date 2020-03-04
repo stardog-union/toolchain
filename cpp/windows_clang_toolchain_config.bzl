@@ -152,6 +152,84 @@ def configure_windows_clang_toolchain(ctx):
         ],
     )
 
+        input_param_flags_feature = feature(
+            name = "input_param_flags",
+            flag_sets = [
+                flag_set(
+                    actions = [
+                        _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME,
+                        _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME,
+                    ],
+                    flag_groups = [
+                        flag_group(
+                            flags = ["/IMPLIB:%{interface_library_output_path}"],
+                            expand_if_available = "interface_library_output_path",
+                        ),
+                    ],
+                ),
+                flag_set(
+                    actions = all_link_actions,
+                    flag_groups = [
+                        flag_group(
+                            flags = ["%{libopts}"],
+                            iterate_over = "libopts",
+                            expand_if_available = "libopts",
+                        ),
+                    ],
+                ),
+                flag_set(
+                    actions = all_link_actions +
+                              [_CPP_LINK_STATIC_LIBRARY_ACTION_NAME],
+                    flag_groups = [
+                        flag_group(
+                            iterate_over = "libraries_to_link",
+                            flag_groups = [
+                                flag_group(
+                                    iterate_over = "libraries_to_link.object_files",
+                                    flag_groups = [flag_group(flags = ["%{libraries_to_link.object_files}"])],
+                                    expand_if_equal = variable_with_value(
+                                        name = "libraries_to_link.type",
+                                        value = "object_file_group",
+                                    ),
+                                ),
+                                flag_group(
+                                    flag_groups = [flag_group(flags = ["%{libraries_to_link.name}"])],
+                                    expand_if_equal = variable_with_value(
+                                        name = "libraries_to_link.type",
+                                        value = "object_file",
+                                    ),
+                                ),
+                                flag_group(
+                                    flag_groups = [flag_group(flags = ["%{libraries_to_link.name}"])],
+                                    expand_if_equal = variable_with_value(
+                                        name = "libraries_to_link.type",
+                                        value = "interface_library",
+                                    ),
+                                ),
+                                flag_group(
+                                    flag_groups = [
+                                        flag_group(
+                                            flags = ["%{libraries_to_link.name}"],
+                                            expand_if_false = "libraries_to_link.is_whole_archive",
+                                        ),
+                                        flag_group(
+                                            flags = ["/WHOLEARCHIVE:%{libraries_to_link.name}"],
+                                            expand_if_true = "libraries_to_link.is_whole_archive",
+                                        ),
+                                    ],
+                                    expand_if_equal = variable_with_value(
+                                        name = "libraries_to_link.type",
+                                        value = "static_library",
+                                    ),
+                                ),
+                            ],
+                            expand_if_available = "libraries_to_link",
+                        ),
+                    ],
+                ),
+            ],
+        )
+
     unfiltered_compile_flags_feature = feature(
         name = "unfiltered_compile_flags",
         enabled = True,
@@ -429,6 +507,7 @@ def configure_windows_clang_toolchain(ctx):
         sysroot_feature,
         system_include_flags_feature,
         unfiltered_compile_flags_feature,
+        input_param_flags_feature,
     ]
 
     # Compiling seemed to work ok with spaces in paths.  Linking did not (due to use of param
