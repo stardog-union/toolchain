@@ -197,7 +197,7 @@ def configure_windows_clang_toolchain(ctx):
                                         expand_if_false = "libraries_to_link.is_whole_archive",
                                     ),
                                     flag_group(
-                                        flags = ["/WHOLEARCHIVE:%{libraries_to_link.name}"],
+                                        flags = ["-Wl,/WHOLEARCHIVE:%{libraries_to_link.name}"],
                                         expand_if_true = "libraries_to_link.is_whole_archive",
                                     ),
                                 ],
