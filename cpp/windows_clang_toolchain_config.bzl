@@ -214,6 +214,67 @@ def configure_windows_clang_toolchain(ctx):
         ],
     )
 
+    libraries_to_link_feature = feature(
+        name = "libraries_to_link",
+        flag_sets = [
+            flag_set(
+                actions = all_link_actions + lto_index_actions +,
+                          [ACTION_NAMES.cpp_link_static_library],
+                flag_groups = [
+                    flag_group(
+                        iterate_over = "libraries_to_link",
+                        flag_groups = [
+                            flag_group(
+                                iterate_over = "libraries_to_link.object_files",
+                                flag_groups = [flag_group(flags = ["%{libraries_to_link.object_files}"])],
+                                expand_if_equal = variable_with_value(
+                                    name = "libraries_to_link.type",
+                                    value = "object_file_group",
+                                ),
+                            ),
+                            flag_group(
+                                flag_groups = [flag_group(flags = ["%{libraries_to_link.name}"])],
+                                expand_if_equal = variable_with_value(
+                                    name = "libraries_to_link.type",
+                                    value = "object_file",
+                                ),
+                            ),
+                            flag_group(
+                                flag_groups = [flag_group(flags = ["%{libraries_to_link.name}"])],
+                                expand_if_equal = variable_with_value(
+                                    name = "libraries_to_link.type",
+                                    value = "interface_library",
+                                ),
+                            ),
+                            flag_group(
+                                flag_groups = [
+                                    flag_group(
+                                        flags = ["%{libraries_to_link.name}"],
+                                        expand_if_false = "libraries_to_link.is_whole_archive",
+                                    ),
+                                    flag_group(
+                                        flags = ["/WHOLEARCHIVE:%{libraries_to_link.name}"],
+                                        expand_if_true = "libraries_to_link.is_whole_archive",
+                                    ),
+                                ],
+                                expand_if_equal = variable_with_value(
+                                    name = "libraries_to_link.type",
+                                    value = "static_library",
+                                ),
+                            ),
+                        ],
+                        expand_if_available = "libraries_to_link",
+                    ),
+                    flag_group(
+                        flags = ["-Wl,@%{thinlto_param_file}"],
+                        expand_if_true = "thinlto_param_file",
+                    ),
+                ],
+            ),
+        ],
+    )
+
+
     unfiltered_compile_flags_feature = feature(
         name = "unfiltered_compile_flags",
         enabled = True,
@@ -492,6 +553,7 @@ def configure_windows_clang_toolchain(ctx):
         system_include_flags_feature,
         unfiltered_compile_flags_feature,
         input_param_flags_feature,
+        libraries_to_link_feature,
     ]
 
     # Compiling seemed to work ok with spaces in paths.  Linking did not (due to use of param
