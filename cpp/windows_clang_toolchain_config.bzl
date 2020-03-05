@@ -16,73 +16,57 @@ load(
     "variable_with_value",
     "with_feature_set",
 )
-load(
-    "@bazel_tools//tools/build_defs/cc:action_names.bzl",
-    _ASSEMBLE_ACTION_NAME = "ASSEMBLE_ACTION_NAME",
-    _CLIF_MATCH_ACTION_NAME = "CLIF_MATCH_ACTION_NAME",
-    _CPP_COMPILE_ACTION_NAME = "CPP_COMPILE_ACTION_NAME",
-    _CPP_HEADER_PARSING_ACTION_NAME = "CPP_HEADER_PARSING_ACTION_NAME",
-    _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME = "CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME",
-    _CPP_LINK_EXECUTABLE_ACTION_NAME = "CPP_LINK_EXECUTABLE_ACTION_NAME",
-    _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME = "CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME",
-    _CPP_LINK_STATIC_LIBRARY_ACTION_NAME = "CPP_LINK_STATIC_LIBRARY_ACTION_NAME",
-    _CPP_MODULE_CODEGEN_ACTION_NAME = "CPP_MODULE_CODEGEN_ACTION_NAME",
-    _CPP_MODULE_COMPILE_ACTION_NAME = "CPP_MODULE_COMPILE_ACTION_NAME",
-    _C_COMPILE_ACTION_NAME = "C_COMPILE_ACTION_NAME",
-    _LINKSTAMP_COMPILE_ACTION_NAME = "LINKSTAMP_COMPILE_ACTION_NAME",
-    _LTO_BACKEND_ACTION_NAME = "LTO_BACKEND_ACTION_NAME",
-    _LTO_INDEXING_ACTION_NAME = "LTO_INDEXING_ACTION_NAME",
-    _PREPROCESS_ASSEMBLE_ACTION_NAME = "PREPROCESS_ASSEMBLE_ACTION_NAME",
-    _STRIP_ACTION_NAME = "STRIP_ACTION_NAME",
-)
+
+load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "ACTION_NAMES")
 
 all_compile_actions = [
-    _C_COMPILE_ACTION_NAME,
-    _CPP_COMPILE_ACTION_NAME,
-    _LINKSTAMP_COMPILE_ACTION_NAME,
-    _ASSEMBLE_ACTION_NAME,
-    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-    _CPP_HEADER_PARSING_ACTION_NAME,
-    _CPP_MODULE_COMPILE_ACTION_NAME,
-    _CPP_MODULE_CODEGEN_ACTION_NAME,
-    _CLIF_MATCH_ACTION_NAME,
-    _LTO_BACKEND_ACTION_NAME,
+    ACTION_NAMES.c_compile,
+    ACTION_NAMES.cpp_compile,
+    ACTION_NAMES.linkstamp_compile,
+    ACTION_NAMES.assemble,
+    ACTION_NAMES.preprocess_assemble,
+    ACTION_NAMES.cpp_header_parsing,
+    ACTION_NAMES.cpp_module_compile,
+    ACTION_NAMES.cpp_module_codegen,
+    ACTION_NAMES.clif_match,
+    ACTION_NAMES.lto_backend,
 ]
 
 all_cpp_compile_actions = [
-    _CPP_COMPILE_ACTION_NAME,
-    _LINKSTAMP_COMPILE_ACTION_NAME,
-    _CPP_HEADER_PARSING_ACTION_NAME,
-    _CPP_MODULE_COMPILE_ACTION_NAME,
-    _CPP_MODULE_CODEGEN_ACTION_NAME,
-    _CLIF_MATCH_ACTION_NAME,
+    ACTION_NAMES.cpp_compile,
+    ACTION_NAMES.linkstamp_compile,
+    ACTION_NAMES.cpp_header_parsing,
+    ACTION_NAMES.cpp_module_compile,
+    ACTION_NAMES.cpp_module_codegen,
+    ACTION_NAMES.clif_match,
 ]
 
 preprocessor_compile_actions = [
-    _C_COMPILE_ACTION_NAME,
-    _CPP_COMPILE_ACTION_NAME,
-    _LINKSTAMP_COMPILE_ACTION_NAME,
-    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-    _CPP_HEADER_PARSING_ACTION_NAME,
-    _CPP_MODULE_COMPILE_ACTION_NAME,
-    _CLIF_MATCH_ACTION_NAME,
+    ACTION_NAMES.c_compile,
+    ACTION_NAMES.cpp_compile,
+    ACTION_NAMES.linkstamp_compile,
+    ACTION_NAMES.preprocess_assemble,
+    ACTION_NAMES.cpp_header_parsing,
+    ACTION_NAMES.cpp_module_compile,
+    ACTION_NAMES.clif_match,
 ]
 
 codegen_compile_actions = [
-    _C_COMPILE_ACTION_NAME,
-    _CPP_COMPILE_ACTION_NAME,
-    _LINKSTAMP_COMPILE_ACTION_NAME,
-    _ASSEMBLE_ACTION_NAME,
-    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-    _CPP_MODULE_CODEGEN_ACTION_NAME,
-    _LTO_BACKEND_ACTION_NAME,
+    ACTION_NAMES.c_compile,
+    ACTION_NAMES.cpp_compile,
+    ACTION_NAMES.linkstamp_compile,
+    ACTION_NAMES.assemble,
+    ACTION_NAMES.preprocess_assemble,
+    ACTION_NAMES.cpp_module_codegen,
+    ACTION_NAMES.lto_backend,
 ]
 
 all_link_actions = [
-    _CPP_LINK_EXECUTABLE_ACTION_NAME,
-    _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME,
-    _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME,
+    ACTION_NAMES.cpp_link_executable,
+    ACTION_NAMES.cpp_link_dynamic_library,
+    ACTION_NAMES.cpp_link_nodeps_dynamic_library,
 ]
+
 
 def configure_windows_clang_toolchain(ctx):
     """Configures windows with clang toolchain where both the host and target systems are windows."""
@@ -113,7 +97,7 @@ def configure_windows_clang_toolchain(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    _CPP_LINK_EXECUTABLE_ACTION_NAME,
+                    ACTION_NAMES.cpp_link_executable,
                 ],
                 flag_groups = [
                     flag_group(
@@ -157,8 +141,8 @@ def configure_windows_clang_toolchain(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME,
-                    _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME,
+                    ACTION_NAMES.cpp_link_dynamic_library,
+                    ACTION_NAMES.cpp_link_nodeps_dynamic_library,
                 ],
                 flag_groups = [
                     flag_group(
@@ -179,7 +163,7 @@ def configure_windows_clang_toolchain(ctx):
             ),
             flag_set(
                 actions = all_link_actions +
-                          [_CPP_LINK_STATIC_LIBRARY_ACTION_NAME],
+                          [ACTION_NAMES.cpp_link_static_library],
                 flag_groups = [
                     flag_group(
                         iterate_over = "libraries_to_link",
@@ -236,16 +220,16 @@ def configure_windows_clang_toolchain(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    _ASSEMBLE_ACTION_NAME,
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [
                     flag_group(
@@ -279,16 +263,16 @@ def configure_windows_clang_toolchain(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    _ASSEMBLE_ACTION_NAME,
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [
                     flag_group(
@@ -313,48 +297,48 @@ def configure_windows_clang_toolchain(ctx):
             ),
             flag_set(
                 actions = [
-                    _ASSEMBLE_ACTION_NAME,
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [flag_group(flags = ["-g", "-O"])],
                 with_features = [with_feature_set(features = ["dbg"])],
             ),
             flag_set(
                 actions = [
-                    _ASSEMBLE_ACTION_NAME,
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [flag_group(flags = ["-g"])],
                 with_features = [with_feature_set(features = ["fastbuild"])],
             ),
             flag_set(
                 actions = [
-                    _ASSEMBLE_ACTION_NAME,
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [
                     flag_group(
@@ -371,13 +355,13 @@ def configure_windows_clang_toolchain(ctx):
             ),
             flag_set(
                 actions = [
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [flag_group(flags = ["-std=%s" % ctx.attr.cc_dialect])],
             ),
@@ -403,16 +387,16 @@ def configure_windows_clang_toolchain(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    _ASSEMBLE_ACTION_NAME,
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
+                    ACTION_NAMES.assemble,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
                 ],
                 flag_groups = [
                     flag_group(
@@ -431,18 +415,18 @@ def configure_windows_clang_toolchain(ctx):
         flag_sets = [
             flag_set(
                 actions = [
-                    _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                    _LINKSTAMP_COMPILE_ACTION_NAME,
-                    _C_COMPILE_ACTION_NAME,
-                    _CPP_COMPILE_ACTION_NAME,
-                    _CPP_HEADER_PARSING_ACTION_NAME,
-                    _CPP_MODULE_COMPILE_ACTION_NAME,
-                    _CPP_MODULE_CODEGEN_ACTION_NAME,
-                    _LTO_BACKEND_ACTION_NAME,
-                    _CLIF_MATCH_ACTION_NAME,
-                    _CPP_LINK_EXECUTABLE_ACTION_NAME,
-                    _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME,
-                    _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME,
+                    ACTION_NAMES.preprocess_assemble,
+                    ACTION_NAMES.linkstamp_compile,
+                    ACTION_NAMES.c_compile,
+                    ACTION_NAMES.cpp_compile,
+                    ACTION_NAMES.cpp_header_parsing,
+                    ACTION_NAMES.cpp_module_compile,
+                    ACTION_NAMES.cpp_module_codegen,
+                    ACTION_NAMES.lto_backend,
+                    ACTION_NAMES.clif_match,
+                    ACTION_NAMES.cpp_link_executable,
+                    ACTION_NAMES.cpp_link_dynamic_library,
+                    ACTION_NAMES.cpp_link_nodeps_dynamic_library,
                 ],
                 flag_groups = [
                     flag_group(
@@ -460,18 +444,18 @@ def configure_windows_clang_toolchain(ctx):
             flag_sets = [
                 flag_set(
                     actions = [
-                        _PREPROCESS_ASSEMBLE_ACTION_NAME,
-                        _LINKSTAMP_COMPILE_ACTION_NAME,
-                        _C_COMPILE_ACTION_NAME,
-                        _CPP_COMPILE_ACTION_NAME,
-                        _CPP_HEADER_PARSING_ACTION_NAME,
-                        _CPP_MODULE_COMPILE_ACTION_NAME,
-                        _CPP_MODULE_CODEGEN_ACTION_NAME,
-                        _LTO_BACKEND_ACTION_NAME,
-                        _CLIF_MATCH_ACTION_NAME,
-                        _CPP_LINK_EXECUTABLE_ACTION_NAME,
-                        _CPP_LINK_DYNAMIC_LIBRARY_ACTION_NAME,
-                        _CPP_LINK_NODEPS_DYNAMIC_LIBRARY_ACTION_NAME,
+                        ACTION_NAMES.preprocess_assemble,
+                        ACTION_NAMES.linkstamp_compile,
+                        ACTION_NAMES.c_compile,
+                        ACTION_NAMES.cpp_compile,
+                        ACTION_NAMES.cpp_header_parsing,
+                        ACTION_NAMES.cpp_module_compile,
+                        ACTION_NAMES.cpp_module_codegen,
+                        ACTION_NAMES.lto_backend,
+                        ACTION_NAMES.clif_match,
+                        ACTION_NAMES.cpp_link_executable,
+                        ACTION_NAMES.cpp_link_dynamic_library,
+                        ACTION_NAMES.cpp_link_nodeps_dynamic_library,
                     ],
                     flag_groups = [
                         flag_group(
