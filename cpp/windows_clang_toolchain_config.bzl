@@ -218,7 +218,7 @@ def configure_windows_clang_toolchain(ctx):
         name = "libraries_to_link",
         flag_sets = [
             flag_set(
-                actions = all_link_actions + lto_index_actions +
+                actions = all_link_actions +
                           [ACTION_NAMES.cpp_link_static_library],
                 flag_groups = [
                     flag_group(
