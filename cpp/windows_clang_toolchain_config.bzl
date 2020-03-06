@@ -116,11 +116,11 @@ def configure_windows_clang_toolchain(ctx):
                         flags = [
                             "-m64",
                             "-Wl,/MACHINE:X64",
-                            "-L/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/ATLMFC/lib/x64",
-                            "-L/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/lib/x64",
-                            "-L/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/4.8/lib/um/x64",
-                            "-L/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/10.0.18362.0/ucrt/x64",
-                            "-L/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/10.0.18362.0/um/x64",
+                            "-Wl,/LIBDIR:\"/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/ATLMFC/lib/x64\"",
+                            "-Wl,/LIBDIR:\"/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Tools/MSVC/14.24.28314/lib/x64\"",
+                            "-Wl,/LIBDIR:\"/c/Program\ Files\ \(x86\)/Windows\ Kits/NETFXSDK/4.8/lib/um/x64\"",
+                            "-Wl,/LIBDIR:\"/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/10.0.18362.0/ucrt/x64\"",
+                            "-Wl,/LIBDIR:\"/c/Program\ Files\ \(x86\)/Windows\ Kits/10/lib/10.0.18362.0/um/x64\"",
 #                            "-Wl,-no-as-needed",
 #mev                            "-Wl,-z,relro,-z,now",
                         ],
@@ -585,7 +585,7 @@ def configure_windows_clang_toolchain(ctx):
             ),
             tool_path(
                 name = "cpp",
-                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/clang.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/clang-xx.exe",
             ),
             tool_path(
                 name = "dwp",
@@ -593,7 +593,7 @@ def configure_windows_clang_toolchain(ctx):
             ),
             tool_path(
                 name = "gcc",
-                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/clang.exe",
+                path = "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/Llvm/bin/clang-yy.exe",
             ),
             tool_path(
                 name = "gcov",

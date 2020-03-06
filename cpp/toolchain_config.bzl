@@ -2,8 +2,9 @@
 
 load(":linux_toolchain_config.bzl", "configure_linux_toolchain")
 load(":linux_osx_cross_toolchain_config.bzl", "configure_linux_osx_cross_toolchain")
-load(":windows_clang_toolchain_config.bzl", "configure_windows_clang_toolchain")
-load(":windows_msvc_toolchain_config.bzl", "configure_windows_msvc_toolchain")
+#load(":windows_clang_toolchain_config.bzl", "configure_windows_clang_toolchain")
+#load(":windows_msvc_toolchain_config.bzl", "configure_windows_msvc_toolchain")
+
 
 def _selector(ctx):
     if (ctx.attr.cpu == "darwin" and ctx.attr.compiler == "linux-osx-cross"):
@@ -15,10 +16,10 @@ def _selector(ctx):
     #     return configure_osx_toolchain(ctx)
     # elif (ctx.attr.cpu == "freebsd"):
     #     toolchain_identifier = "local_freebsd"
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
-        return configure_windows_clang_toolchain(ctx)
-    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "msvc-cl"):
-        return configure_windows_msvc_toolchain(ctx)
+#    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
+#        return configure_windows_clang_toolchain(ctx)
+#    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "msvc-cl"):
+#        return configure_windows_msvc_toolchain(ctx)
     # elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
     #     toolchain_identifier = "local_windows_mingw"
     # elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_msys64"):
