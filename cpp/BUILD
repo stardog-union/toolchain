@@ -7,7 +7,7 @@ LINUX_CC_TOOLCHAINS = [
     ("k8|linux-osx-cross", ":c++14-linux-x86_64-osx-cross"),
 #    ("x64_windows", ":c++14-windows-x86_64-local-clang-vc2019"),
 #    ("x64_windows|clang-vc2019", ":c++14-windows-x86_64-local-clang-vc2019"),
-    ("x64_windows|msvc-cl", ":c++14-windows-x86_64-local-msvc-2019"),
+    ("x64_windows|msvc-cl", ":c++14-windows-x86_64-local-vs"),
 ]
 
 cc_toolchain_suite(
