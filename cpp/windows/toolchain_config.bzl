@@ -1722,4 +1722,9 @@ windows_cc_toolchain_config = rule(
 )
 
 def windows_local_vs_config(ctx):
-    return _windows_msvc_impl(ctx)
+    return [
+        _windows_msvc_impl(ctx),
+        DefaultInfo(
+            executable = out,
+        ),
+    ]
