@@ -3,7 +3,7 @@
 load(":linux_toolchain_config.bzl", "configure_linux_toolchain")
 load(":linux_osx_cross_toolchain_config.bzl", "configure_linux_osx_cross_toolchain")
 #load(":windows_clang_toolchain_config.bzl", "configure_windows_clang_toolchain")
-load(":windows_msvc_toolchain_config.bzl", "configure_windows_msvc_toolchain")
+#load(":windows_msvc_toolchain_config.bzl", "configure_windows_msvc_toolchain")
 load("//cpp/windows:toolchain_config.bzl", "windows_local_vs_config")
 
 def _selector(ctx):
