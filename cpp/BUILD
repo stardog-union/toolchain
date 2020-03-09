@@ -161,9 +161,9 @@ cc_library(
 
 # Windows with visual studio 2019
 cc_toolchain(
-    name = "c++14-windows-x86_64-local-msvc-2019",
-    toolchain_identifier = "c++14-windows-x86_64-local-msvc-2019",
-    toolchain_config = ":c++14-windows-x86_64-local-msvc-2019-config",
+    name = "c++14-windows-x86_64-local-vs",
+    toolchain_identifier = "c++14-windows-x86_64-local-vs",
+    toolchain_config = ":c++14-windows-x86_64-local-vs-config",
     all_files = ":empty",
     compiler_files = ":empty",
     dwp_files = ":empty",
@@ -173,7 +173,7 @@ cc_toolchain(
 )
 
 toolchain(
-    name = "c++14-windows-x86_64-local-msvc-2019-toolchain",
+    name = "c++14-windows-x86_64-local-vs-toolchain",
     exec_compatible_with = [
         "@bazel_tools//platforms:x86_64",
         "@bazel_tools//platforms:windows",
@@ -182,12 +182,12 @@ toolchain(
         "@bazel_tools//platforms:x86_64",
         "@bazel_tools//platforms:windows",
     ],
-    toolchain = ":c++14-windows-x86_64-local-msvc-2019",
+    toolchain = ":c++14-windows-x86_64-local-vs",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
 cc_toolchain_config(
-    name = "c++14-windows-x86_64-local-msvc-2019-config",
+    name = "c++14-windows-x86_64-local-vs-config",
     cpu = "x64_windows",
     compiler = "msvc-cl",
     cc_dialect = "c++14",
