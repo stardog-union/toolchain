@@ -188,9 +188,9 @@ toolchain(
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
-cc_toolchain_config(
+windows_cc_toolchain_config(
     name = "c++14-windows-x86_64-local-vs-config",
     cpu = "x64_windows",
     compiler = "msvc-cl",
-    cc_dialect = "c++14",
+#    cc_dialect = "c++14",
 )
