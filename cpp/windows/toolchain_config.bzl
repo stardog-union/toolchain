@@ -91,8 +91,6 @@ def _windows_msvc_impl(ctx):
     cc_target_os = None
     builtin_sysroot = None
 
-    fail("execution failed where expected")
-
     cxx_builtin_include_directories = [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\VC\\Tools\\MSVC\\14.24.28314\\include",
         "C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.18362.0\\ucrt",
@@ -1724,10 +1722,11 @@ windows_cc_toolchain_config = rule(
 )
 
 def windows_local_vs_config(ctx):
+    temp = _windows_msvc_impl(ctx),
     out = ctx.actions.declare_file(ctx.label.name)
     ctx.actions.write(out, "Fake executable")
     return [
-        _windows_msvc_impl(ctx),
+        temp,
         DefaultInfo(
             executable = out,
         ),
