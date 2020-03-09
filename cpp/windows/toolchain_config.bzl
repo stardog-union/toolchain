@@ -1722,6 +1722,8 @@ windows_cc_toolchain_config = rule(
 )
 
 def windows_local_vs_config(ctx):
+    out = ctx.actions.declare_file(ctx.label.name)
+    ctx.actions.write(out, "Fake executable")
     return [
         _windows_msvc_impl(ctx),
         DefaultInfo(
