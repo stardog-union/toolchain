@@ -86,8 +86,8 @@ all_link_actions = [
 
 def configure_linux_toolchain(ctx):
     """Configures Linux toolchains where both the host and target systems are Linux variants."""
-    if (ctx.attr.cpu != "linux-x86_64"):
-        fail("This method is only applicable to the linux-x86_64 cpu toolchain")
+#    if (ctx.attr.cpu != "linux-x86_64"):
+#        fail("This method is only applicable to the linux-x86_64 cpu toolchain")
 
     toolchain_identifier = "local_linux"
     host_system_name = "local"
