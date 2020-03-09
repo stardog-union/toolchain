@@ -1,5 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 load(":toolchain_config.bzl", "cc_toolchain_config")
+load(":toolchain_config.bzl", "cc_toolchain_config")
+load("//cpp/windows:toolchain_config.bzl", "windows_cc_toolchain_config")
 
 LINUX_CC_TOOLCHAINS = [
     ("k8", ":c++14-linux-x86_64-local-clang-3.9"),
@@ -186,7 +188,7 @@ toolchain(
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
 
-cc_toolchain_config(
+windows_cc_toolchain_config(
     name = "c++14-windows-x86_64-local-vs-config",
     cpu = "x64_windows",
     compiler = "msvc-cl",
