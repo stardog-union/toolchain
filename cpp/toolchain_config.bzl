@@ -4,7 +4,7 @@ load(":linux_toolchain_config.bzl", "configure_linux_toolchain")
 load(":linux_osx_cross_toolchain_config.bzl", "configure_linux_osx_cross_toolchain")
 #load(":windows_clang_toolchain_config.bzl", "configure_windows_clang_toolchain")
 load(":windows_msvc_toolchain_config.bzl", "configure_windows_msvc_toolchain")
-load("//cpp/windows:toolchain_config.bzl", "windows_cc_toolchain_config")
+load("//cpp/windows:toolchain_config.bzl", "windows_local_vs_config")
 
 def _selector(ctx):
     if (ctx.attr.cpu == "darwin" and ctx.attr.compiler == "linux-osx-cross"):
@@ -19,7 +19,7 @@ def _selector(ctx):
 #    elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "clang-vc2019"):
 #        return configure_windows_clang_toolchain(ctx)
     elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "msvc-cl"):
-        return windows_cc_toolchain_config(ctx)
+        return windows_local_vs_config(ctx)
 #        return configure_windows_msvc_toolchain(ctx)
     # elif (ctx.attr.cpu == "x64_windows" and ctx.attr.compiler == "windows_mingw"):
     #     toolchain_identifier = "local_windows_mingw"

@@ -1720,3 +1720,6 @@ windows_cc_toolchain_config = rule(
     },
     provides = [CcToolchainConfigInfo],
 )
+
+def windows_local_vs_config(ctx):
+    return _windows_msvc_impl(ctx)
