@@ -7,9 +7,6 @@ LINUX_CC_TOOLCHAINS = [
     ("k8", ":c++14-linux-x86_64-local-clang-3.9"),
     ("k8|centos7", ":c++14-linux-x86_64-centos7-devtoolset-7-llvm"),
     ("k8|linux-osx-cross", ":c++14-linux-x86_64-osx-cross"),
-    ("x64_windows", ":c++14-windows-x86_64-local-vs"),
-#    ("x64_windows", ":c++14-windows-x86_64-local-clang-vc2019"),
-#    ("x64_windows|clang-vc2019", ":c++14-windows-x86_64-local-clang-vc2019"),
 ]
 
 cc_toolchain_suite(
