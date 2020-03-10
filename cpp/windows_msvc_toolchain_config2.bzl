@@ -91,7 +91,6 @@ def _windows_msvc_impl(ctx):
     cc_target_os = None
     builtin_sysroot = None
 
-    fail("this being called?")
 
     cxx_builtin_include_directories = [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\VC\\Tools\\MSVC\\14.24.28314\\include",
