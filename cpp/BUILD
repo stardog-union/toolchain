@@ -13,7 +13,7 @@ LINUX_CC_TOOLCHAINS = [
 ]
 
 cc_toolchain_suite(
-    name = "c++14",
+    name = "c++14-linux",
     toolchains = dict(LINUX_CC_TOOLCHAINS),
 )
 
