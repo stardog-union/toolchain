@@ -1,6 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 load(":toolchain_config.bzl", "cc_toolchain_config")
-load(":toolchain_config.bzl", "cc_toolchain_config")
 load(":windows_msvc_toolchain_config2.bzl", "windows_cc_toolchain_config")
 
 LINUX_CC_TOOLCHAINS = [
